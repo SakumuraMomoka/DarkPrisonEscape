@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: dakko_override
+  m_Controller: {fileID: 9100000, guid: b6bf8922d7f26a84e85235eaa26967ef, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: fc96f95b1f3312241922439d2da6e86a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c6dcfab615eeb714d8e706723654af21, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ed63276604e4abe4980c4506c49bd873, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 988f379da25db374a9202c5c138c6418, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b127441ba4c44fc4598c1922a59e414f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 03d25b8b904cd1b42adb73b6d7a74c2a, type: 2}
