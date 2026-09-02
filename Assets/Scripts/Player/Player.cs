@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private LayerMask groundLayer;
 
-    private bool isTochigPrincess;
+    private bool isTouchingGirl = false;
 
     private PlayerInput input;
     private PlayerMode mode;
@@ -41,18 +41,25 @@ public class Player : MonoBehaviour
         {
             attack();
         }
-
+        
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
     }
 
     private void OnTriggerEnter2D(Collider2D other)//他のオブジェクトと触れたとき
     {
-
+        if(other.CompareTag("Girl"))
+        {
+            isTouchingGirl = true;
+            Debug.Log("ok");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)//他のオブジェクトと離れたとき
     {
-
+        if (other.CompareTag("Girl"))
+        {
+            isTouchingGirl = false;
+        }
     }
 
     private void walk()//歩く
@@ -111,6 +118,12 @@ public class Player : MonoBehaviour
 
     private void modechange()//モード変更の管理
     {
-
+        if(isTouchingGirl == true)
+        {
+            if (input.TetunagiPressed) mode.ChangeMode(PlayerMode.Mode.Tetunagi);
+            if (input.DakkoPressed) mode.ChangeMode(PlayerMode.Mode.Dakko);
+            if (input.SwordPressed) mode.ChangeMode(PlayerMode.Mode.Sword);
+            if (input.KaijyoPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
+        }
     }
 }
