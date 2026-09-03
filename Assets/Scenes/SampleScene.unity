@@ -360,8 +360,8 @@ GameObject:
   m_Component:
   - component: {fileID: 164889696}
   - component: {fileID: 164889695}
-  - component: {fileID: 164889694}
   - component: {fileID: 164889697}
+  - component: {fileID: 164889698}
   m_Layer: 0
   m_Name: girl
   m_TagString: Girl
@@ -369,28 +369,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &164889694
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 164889693}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e8b4308cd7e4fca449ac9f501c1a36d8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &164889695
 SpriteRenderer:
   serializedVersion: 2
@@ -502,6 +480,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 5.37, y: 8.751146}
   m_Direction: 0
+--- !u!114 &164889698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164889693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edde0af85b25144cb14a4993f3d0aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Girl
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

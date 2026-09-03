@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
         if(other.CompareTag("Girl"))
         {
             isTouchingGirl = true;
-            Debug.Log("ok");
         }
     }
 
@@ -113,17 +112,20 @@ public class Player : MonoBehaviour
 
     private void attack()//攻撃
     {
-
+        if (input.AttackPressed) animator.SetTrigger("Cut");
     }
 
     private void modechange()//モード変更の管理
     {
-        if(isTouchingGirl == true)
+        if (input.KaijyoPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
+
+        if (isTouchingGirl == true)
         {
             if (input.TetunagiPressed) mode.ChangeMode(PlayerMode.Mode.Tetunagi);
             if (input.DakkoPressed) mode.ChangeMode(PlayerMode.Mode.Dakko);
-            if (input.SwordPressed) mode.ChangeMode(PlayerMode.Mode.Sword);
-            if (input.KaijyoPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
         }
+
+        if (input.SwordPressed) mode.ChangeMode(PlayerMode.Mode.Sword);
+
     }
 }
