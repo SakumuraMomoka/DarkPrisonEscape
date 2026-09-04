@@ -5,9 +5,10 @@ public class Girl : MonoBehaviour
     private PlayerMode playerMode;
     private PlayerInput playerInput;
     private SpriteRenderer spriteRenderer;
+    private Collider2D col;
     GameObject player;
 
-    private PlayerMode.Mode previousMode;
+    //private bool isTouchingPlayer = false;
 
     private void Awake()
     {
@@ -15,32 +16,43 @@ public class Girl : MonoBehaviour
         playerMode = player.GetComponent<PlayerMode>();
         playerInput = player.GetComponent<PlayerInput>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        previousMode = playerMode.CurrentMode;
+        col = GetComponent<Collider2D>();
     }
 
     private void Update()
     {
         trans();
-
-        previousMode = playerMode.CurrentMode;
     }
+
+    /*private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            isTouchingPlayer = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            isTouchingPlayer = false;
+        }
+    }*/
 
     private void trans()//騎士のモードによる、姫の座標等の変更
     {
         if (playerMode.CurrentMode == PlayerMode.Mode.Tetunagi 
-            || playerMode.CurrentMode == PlayerMode.Mode.Dakko)//手繋ぎと抱っこモードの時、スプライトを見えなくする
-        {
-            spriteRenderer.enabled = false;
-        }
+            || playerMode.CurrentMode == PlayerMode.Mode.Dakko)
+        { 
+            spriteRenderer.enabled = false;//スプライトを見えなくする
+            //col.enabled = false;//当たり判定をなくす
 
-        if ((previousMode == PlayerMode.Mode.Tetunagi
-        || previousMode == PlayerMode.Mode.Dakko)
-        &&
-        (playerMode.CurrentMode != PlayerMode.Mode.Tetunagi
-        && playerMode.CurrentMode != PlayerMode.Mode.Dakko))//手繋ぎまたは抱っこモードが解除されたとき、姫をおいていく
-        {
             transform.position = player.transform.position;
+        }
+        else
+        {
+            //col.enabled = true;
             spriteRenderer.enabled = true;
         }
     }
