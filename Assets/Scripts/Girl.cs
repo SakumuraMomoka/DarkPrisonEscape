@@ -40,13 +40,13 @@ public class Girl : MonoBehaviour
         }
     }*/
 
-    private void trans()//騎士のモードによる、姫の座標等の変更
+    private void trans()//player縺ｮ繝｢繝ｼ繝峨↓蠢懊§縺ｦ遘ｻ蜍輔☆繧句�ｦ逅�
     {
         if (playerMode.CurrentMode == PlayerMode.Mode.Tetunagi 
             || playerMode.CurrentMode == PlayerMode.Mode.Dakko)
         { 
-            spriteRenderer.enabled = false;//スプライトを見えなくする
-            //col.enabled = false;//当たり判定をなくす
+            spriteRenderer.enabled = false;
+            //col.enabled = false;
 
             transform.position = player.transform.position;
         }

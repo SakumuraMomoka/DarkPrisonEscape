@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
         }
     }
 
+
     private void walk()//歩く
     {
         Vector2 walk = input.WalkInput;//移動入力の値を取得
