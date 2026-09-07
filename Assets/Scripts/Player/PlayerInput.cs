@@ -6,11 +6,11 @@ public class PlayerInput : MonoBehaviour
 
     public Vector2 WalkInput { get; private set; }//歩く
     public bool JumpPressed{ get; private set; }//ジャンプ
-    public bool AttackPressed { get; private set; }//攻撃
+    public bool SwordPressed { get; private set; }//攻撃
     public bool TetunagiPressed { get; private set; }//手つなぎモードに変更
     public bool DakkoPressed { get; private set; }//抱っこモードに変更
-    public bool SwordPressed { get; private set; }//ソードモードに変更
-    public bool KaijyoPressed { get; private set; }//手つなぎ、抱っこ、またはソードモードを解除してノーマルモードになる
+    public bool NormalPressed { get; private set; }//ノーマルモード
+    public bool ShootPressed {  get; private set; }//弓発射
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -35,15 +35,14 @@ public class PlayerInput : MonoBehaviour
 
         JumpPressed = input.Player.Jump.WasPressedThisFrame();
 
-        AttackPressed = input.Player.Attack.WasPressedThisFrame();
+        SwordPressed = input.Player.Sword.WasPressedThisFrame();
 
         TetunagiPressed = input.Player.Tetunagi.WasPressedThisFrame();
 
         DakkoPressed = input.Player.Dakko.WasPressedThisFrame();
 
-        SwordPressed = input.Player.Sword.WasPressedThisFrame();
+        NormalPressed = input.Player.Normal.WasPressedThisFrame();
 
-        KaijyoPressed = input.Player.Kaijyo.WasPressedThisFrame();
-
+        ShootPressed = input.Player.Shoot.WasPressedThisFrame();
     }
 }

@@ -111,7 +111,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Sword"",
                     ""type"": ""Button"",
                     ""id"": ""d29de30c-9fa8-4599-939e-76409fa83235"",
                     ""expectedControlType"": """",
@@ -138,18 +138,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Sword"",
+                    ""name"": ""Normal"",
                     ""type"": ""Button"",
-                    ""id"": ""f70ce1b7-d5b5-49c1-a604-6e0a439356be"",
+                    ""id"": ""2d2b8cdd-ae8a-4097-8282-25a6d38b41c2"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Kaijyo"",
+                    ""name"": ""Shoot"",
                     ""type"": ""Button"",
-                    ""id"": ""2d2b8cdd-ae8a-4097-8282-25a6d38b41c2"",
+                    ""id"": ""cfd91b79-13f4-40ce-a154-0356d25ca812"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -208,7 +208,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""Sword"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -236,23 +236,23 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""30ae4984-2630-4526-abb3-dc787452c5cb"",
+                    ""id"": ""84530e4a-8642-4a70-8ecb-0c87458ddae9"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Sword"",
+                    ""action"": ""Normal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""84530e4a-8642-4a70-8ecb-0c87458ddae9"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""id"": ""26a2451f-fa90-4403-82e0-95de5fa7fb9c"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Kaijyo"",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -265,11 +265,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_Sword = m_Player.FindAction("Sword", throwIfNotFound: true);
         m_Player_Tetunagi = m_Player.FindAction("Tetunagi", throwIfNotFound: true);
         m_Player_Dakko = m_Player.FindAction("Dakko", throwIfNotFound: true);
-        m_Player_Sword = m_Player.FindAction("Sword", throwIfNotFound: true);
-        m_Player_Kaijyo = m_Player.FindAction("Kaijyo", throwIfNotFound: true);
+        m_Player_Normal = m_Player.FindAction("Normal", throwIfNotFound: true);
+        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -352,11 +352,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Walk;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_Sword;
     private readonly InputAction m_Player_Tetunagi;
     private readonly InputAction m_Player_Dakko;
-    private readonly InputAction m_Player_Sword;
-    private readonly InputAction m_Player_Kaijyo;
+    private readonly InputAction m_Player_Normal;
+    private readonly InputAction m_Player_Shoot;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -377,9 +377,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Attack".
+        /// Provides access to the underlying input action "Player/Sword".
         /// </summary>
-        public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @Sword => m_Wrapper.m_Player_Sword;
         /// <summary>
         /// Provides access to the underlying input action "Player/Tetunagi".
         /// </summary>
@@ -389,13 +389,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Dakko => m_Wrapper.m_Player_Dakko;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Sword".
+        /// Provides access to the underlying input action "Player/Normal".
         /// </summary>
-        public InputAction @Sword => m_Wrapper.m_Player_Sword;
+        public InputAction @Normal => m_Wrapper.m_Player_Normal;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Kaijyo".
+        /// Provides access to the underlying input action "Player/Shoot".
         /// </summary>
-        public InputAction @Kaijyo => m_Wrapper.m_Player_Kaijyo;
+        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -428,21 +428,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
+            @Sword.started += instance.OnSword;
+            @Sword.performed += instance.OnSword;
+            @Sword.canceled += instance.OnSword;
             @Tetunagi.started += instance.OnTetunagi;
             @Tetunagi.performed += instance.OnTetunagi;
             @Tetunagi.canceled += instance.OnTetunagi;
             @Dakko.started += instance.OnDakko;
             @Dakko.performed += instance.OnDakko;
             @Dakko.canceled += instance.OnDakko;
-            @Sword.started += instance.OnSword;
-            @Sword.performed += instance.OnSword;
-            @Sword.canceled += instance.OnSword;
-            @Kaijyo.started += instance.OnKaijyo;
-            @Kaijyo.performed += instance.OnKaijyo;
-            @Kaijyo.canceled += instance.OnKaijyo;
+            @Normal.started += instance.OnNormal;
+            @Normal.performed += instance.OnNormal;
+            @Normal.canceled += instance.OnNormal;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         /// <summary>
@@ -460,21 +460,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
+            @Sword.started -= instance.OnSword;
+            @Sword.performed -= instance.OnSword;
+            @Sword.canceled -= instance.OnSword;
             @Tetunagi.started -= instance.OnTetunagi;
             @Tetunagi.performed -= instance.OnTetunagi;
             @Tetunagi.canceled -= instance.OnTetunagi;
             @Dakko.started -= instance.OnDakko;
             @Dakko.performed -= instance.OnDakko;
             @Dakko.canceled -= instance.OnDakko;
-            @Sword.started -= instance.OnSword;
-            @Sword.performed -= instance.OnSword;
-            @Sword.canceled -= instance.OnSword;
-            @Kaijyo.started -= instance.OnKaijyo;
-            @Kaijyo.performed -= instance.OnKaijyo;
-            @Kaijyo.canceled -= instance.OnKaijyo;
+            @Normal.started -= instance.OnNormal;
+            @Normal.performed -= instance.OnNormal;
+            @Normal.canceled -= instance.OnNormal;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         /// <summary>
@@ -530,12 +530,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Sword" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAttack(InputAction.CallbackContext context);
+        void OnSword(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Tetunagi" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -551,18 +551,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDakko(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Sword" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Normal" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSword(InputAction.CallbackContext context);
+        void OnNormal(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Kaijyo" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnKaijyo(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

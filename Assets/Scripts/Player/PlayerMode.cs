@@ -12,7 +12,6 @@ public class PlayerMode : MonoBehaviour
         Normal,
         Tetunagi,
         Dakko,
-        Sword
     }
 
     public Mode CurrentMode {  get; private set; } = Mode.Normal;//最初のモードはnormal
@@ -41,9 +40,6 @@ public class PlayerMode : MonoBehaviour
                 animator.runtimeAnimatorController = dakkoController;
                 break;
 
-            case Mode.Sword:
-                animator.runtimeAnimatorController = swordController;
-                break;
         }
     }
 }

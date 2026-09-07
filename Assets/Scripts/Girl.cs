@@ -5,7 +5,6 @@ public class Girl : MonoBehaviour
     private PlayerMode playerMode;
     private PlayerInput playerInput;
     private SpriteRenderer spriteRenderer;
-    private Collider2D col;
     GameObject player;
 
     //private bool isTouchingPlayer = false;
@@ -16,7 +15,6 @@ public class Girl : MonoBehaviour
         playerMode = player.GetComponent<PlayerMode>();
         playerInput = player.GetComponent<PlayerInput>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        col = GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -46,13 +44,11 @@ public class Girl : MonoBehaviour
             || playerMode.CurrentMode == PlayerMode.Mode.Dakko)
         { 
             spriteRenderer.enabled = false;
-            //col.enabled = false;
 
             transform.position = player.transform.position;
         }
         else
         {
-            //col.enabled = true;
             spriteRenderer.enabled = true;
         }
     }

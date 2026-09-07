@@ -37,9 +37,9 @@ public class Player : MonoBehaviour
             jump();
         }
 
-        if (canAttack() && input.AttackPressed)
+        if (canAttack() && input.SwordPressed)
         {
-            attack();
+            sword();
         }
         
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
@@ -86,13 +86,13 @@ public class Player : MonoBehaviour
     private bool canJump()//ジャンプできる条件
     {
         return mode.CurrentMode == PlayerMode.Mode.Normal ||
-               mode.CurrentMode == PlayerMode.Mode.Dakko ||
-               mode.CurrentMode == PlayerMode.Mode.Sword;
+               mode.CurrentMode == PlayerMode.Mode.Dakko; 
     }
 
     private bool canAttack()//攻撃できる条件
     {
-        return mode.CurrentMode == PlayerMode.Mode.Sword;
+        return mode.CurrentMode == PlayerMode.Mode.Normal ||
+               mode.CurrentMode == PlayerMode.Mode.Tetunagi;
     }
 
     private void jump()//ジャンプ
@@ -111,14 +111,19 @@ public class Player : MonoBehaviour
             );
     }
 
-    private void attack()//攻撃
+    private void sword()//剣で切る
     {
-        if (input.AttackPressed) animator.SetTrigger("Cut");
+        if (input.SwordPressed) animator.SetTrigger("Cut");
+    }
+
+    private void shoot()//弓を飛ばす
+    {
+
     }
 
     private void modechange()//モード変更の管理
     {
-        if (input.KaijyoPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
+        if (input.NormalPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
 
         if (isTouchingGirl == true)
         {
@@ -126,7 +131,6 @@ public class Player : MonoBehaviour
             if (input.DakkoPressed) mode.ChangeMode(PlayerMode.Mode.Dakko);
         }
 
-        if (input.SwordPressed) mode.ChangeMode(PlayerMode.Mode.Sword);
 
     }
 }
