@@ -43,6 +43,6 @@ public class PlayerInput : MonoBehaviour
 
         NormalPressed = input.Player.Normal.WasPressedThisFrame();
 
-        ShootPressed = input.Player.Shoot.WasPressedThisFrame();
+        ShootPressed = input.Player.Shoot.IsPressed();
     }
 }

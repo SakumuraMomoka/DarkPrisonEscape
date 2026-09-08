@@ -5,9 +5,14 @@ public class Player : MonoBehaviour
     [SerializeField] private float walkSpeed;
     [SerializeField] private float jumpPower;
 
+    [SerializeField] private GameObject tamaPrefab;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform shootPoint;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float shootInterval;
+
+    private float shootTimer;
 
     private bool isTouchingGirl = false;
 
@@ -16,6 +21,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private SpriteRenderer arrowArmSpr;
 
     private void Awake()
     {
@@ -24,6 +30,9 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        arrowArmSpr = transform.Find("arrow arm").GetComponent<SpriteRenderer>();
+
+        shootTimer = shootInterval;
     }
 
     private void Update()
@@ -41,8 +50,19 @@ public class Player : MonoBehaviour
         {
             sword();
         }
-        
+
+        if (canAttack() && input.ShootPressed)
+        {
+            arrowArmSpr.enabled = true;
+            shoot();
+        }
+        else
+        {
+            arrowArmSpr.enabled = false;
+        }
+
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
+        animator.SetBool("IsArrow", input.ShootPressed);
     }
 
     private void OnTriggerEnter2D(Collider2D other)//他のオブジェクトと触れたとき
@@ -75,11 +95,11 @@ public class Player : MonoBehaviour
         //スプライトの反転
         if(walk.x > 0)
         {
-            spriteRenderer.flipX = true;
+            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         }
         else if(walk.x < 0)
         {
-            spriteRenderer.flipX = false;
+            transform.localScale = new Vector3(-0.1f, 0.1f, 0.1f);
         }
     }
 
@@ -113,12 +133,18 @@ public class Player : MonoBehaviour
 
     private void sword()//剣で切る
     {
-        if (input.SwordPressed) animator.SetTrigger("Cut");
+        animator.SetTrigger("Cut");
     }
 
     private void shoot()//弓を飛ばす
     {
+        shootTimer += Time.deltaTime;
 
+        if (shootTimer >= shootInterval)
+        {
+            Instantiate(tamaPrefab, shootPoint.position, Quaternion.identity);
+            shootTimer = 0f;
+        }
     }
 
     private void modechange()//モード変更の管理
@@ -131,6 +157,6 @@ public class Player : MonoBehaviour
             if (input.DakkoPressed) mode.ChangeMode(PlayerMode.Mode.Dakko);
         }
 
-
     }
+
 }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0bf8d1bf563717043988eb22ff07dc23
+guid: 71d7324121315c4498a1e9b2dd285cb4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4143372264229163019
-    second: IMG_0029_0
+      213: 8231189582835315176
+    second: IMG_0028_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -96,27 +96,40 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_0029_0
+      name: IMG_0028_0
       rect:
         serializedVersion: 2
-        x: 475
-        y: 528
-        width: 927
-        height: 1330
+        x: 0
+        y: 519
+        width: 1406
+        height: 1318
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5ff2a62d0e8cf76c0800000000000000
-      internalID: -4143372264229163019
+      spriteID: 8e17bcb905f0b3270800000000000000
+      internalID: 8231189582835315176
       vertices: []
       indices: 
       edges: []
@@ -125,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ab23ed08cdbde3047bc8c0d72a2cf43e
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IMG_0029_0: -4143372264229163019
+      IMG_0028_0: 8231189582835315176
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
