@@ -1,9 +1,12 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float walkSpeed;
     [SerializeField] private float jumpPower;
+
+    private float direction = 1;//たまの向きを変えるための変数
 
     [SerializeField] private GameObject tamaPrefab;
     [SerializeField] private Transform groundCheck;
@@ -31,8 +34,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         arrowArmSpr = transform.Find("arrow arm").GetComponent<SpriteRenderer>();
-
-        shootTimer = shootInterval;
     }
 
     private void Update()
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour
         else
         {
             arrowArmSpr.enabled = false;
+            shootTimer = 0f;
         }
 
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
@@ -96,10 +98,12 @@ public class Player : MonoBehaviour
         if(walk.x > 0)
         {
             transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            direction = 1;
         }
         else if(walk.x < 0)
         {
             transform.localScale = new Vector3(-0.1f, 0.1f, 0.1f);
+            direction = -1;
         }
     }
 
@@ -138,13 +142,16 @@ public class Player : MonoBehaviour
 
     private void shoot()//弓を飛ばす
     {
-        shootTimer += Time.deltaTime;
-
-        if (shootTimer >= shootInterval)
+        if (shootTimer <= 0f)
         {
-            Instantiate(tamaPrefab, shootPoint.position, Quaternion.identity);
-            shootTimer = 0f;
+            GameObject tama = Instantiate(tamaPrefab, shootPoint.position, Quaternion.identity);//弾の生成
+
+            tama.GetComponent<TamaController>().SetDirection(direction);
+
+            shootTimer = shootInterval;
         }
+
+        shootTimer -= Time.deltaTime;
     }
 
     private void modechange()//モード変更の管理
