@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         }
 
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
-        animator.SetBool("IsArrow", input.ShootPressed);
+        animator.SetBool("IsArrow", canAttack() && input.ShootPressed);
     }
 
     private void OnTriggerEnter2D(Collider2D other)//他のオブジェクトと触れたとき
@@ -156,12 +156,15 @@ public class Player : MonoBehaviour
 
     private void modechange()//モード変更の管理
     {
-        if (input.NormalPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
-
-        if (isTouchingGirl == true)
+        if (IsGrounded() == true)
         {
-            if (input.TetunagiPressed) mode.ChangeMode(PlayerMode.Mode.Tetunagi);
-            if (input.DakkoPressed) mode.ChangeMode(PlayerMode.Mode.Dakko);
+            if (input.NormalPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
+
+            if (isTouchingGirl == true)
+            {
+                if (input.TetunagiPressed) mode.ChangeMode(PlayerMode.Mode.Tetunagi);
+                if (input.DakkoPressed) mode.ChangeMode(PlayerMode.Mode.Dakko);
+            }
         }
 
     }

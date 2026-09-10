@@ -47,7 +47,7 @@ public class Girl : MonoBehaviour
 
             transform.position = player.transform.position + new Vector3(0, 0.3f, 0);//地面に埋まらないための処理
         }
-        else
+        else if (playerMode.CurrentMode == PlayerMode.Mode.Normal)
         {
             spriteRenderer.enabled = true;
         }
