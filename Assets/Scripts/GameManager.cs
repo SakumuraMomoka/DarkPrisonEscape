@@ -15,9 +15,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void timeManager()//残り時間の管理
+    private void timeManager()
     {
-        timeText.text = "" + time;//残り時間を表示
+        timeText.text = "" + time;//谿九ｊ譎る俣縺ｮ陦ｨ遉ｺ
 
         time -= Time.deltaTime;
 
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void scoreManager()//スコアの管理
+    private void scoreManager()
     {
 
     }
