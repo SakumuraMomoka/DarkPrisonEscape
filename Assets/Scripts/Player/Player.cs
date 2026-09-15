@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -65,6 +66,26 @@ public class Player : MonoBehaviour
 
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
         animator.SetBool("IsArrow", canAttack() && input.ShootPressed);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)//collision
+    {
+        if (other.gameObject.CompareTag("Enemy"))//敵とぶつかったとき
+        {
+            Collider2D playerCollider = GetComponent<Collider2D>();
+            Collider2D enemyCollider = other.gameObject.GetComponent<Collider2D>();
+
+            Physics2D.IgnoreCollision(enemyCollider, playerCollider, true);//敵とplayerの当たり判定をなくす
+
+            StartCoroutine(RestoreCollision(enemyCollider, playerCollider));
+        }
+    }
+
+    private IEnumerator RestoreCollision(Collider2D enemyCollider, Collider2D playerCollider)//一秒待ってから、敵とプレーヤーの当たり判定を元に戻す
+    {
+        yield return new WaitForSeconds(1f);
+
+        Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)//他のオブジェクトと触れたとき
