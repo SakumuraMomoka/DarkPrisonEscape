@@ -55,7 +55,7 @@ public class DashingEnemyController : MonoBehaviour
         {
             currentSpeed -= deceleration * Time.deltaTime;//Œ¸‘¬
 
-            if  (currentSpeed <= 0f)
+            if  (currentSpeed <= 0f)//Š®‘S‚É‘¬‚³‚ª‚È‚­‚È‚Á‚½‚ç
             {
                 currentSpeed = 0f;
                 direction *= -1;//”½“]

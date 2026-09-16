@@ -77,13 +77,17 @@ public class Player : MonoBehaviour
 
             Physics2D.IgnoreCollision(enemyCollider, playerCollider, true);//敵とplayerの当たり判定をなくす
 
+            //敵から離れる
+            float direction = this.transform.position.x - other.transform.position.x;
+            rb.AddForce(new Vector2(Mathf.Sign(direction) * 3f, 1f), ForceMode2D.Impulse);
+
             StartCoroutine(RestoreCollision(enemyCollider, playerCollider));
         }
     }
 
-    private IEnumerator RestoreCollision(Collider2D enemyCollider, Collider2D playerCollider)//一秒待ってから、敵とプレーヤーの当たり判定を元に戻す
+    private IEnumerator RestoreCollision(Collider2D enemyCollider, Collider2D playerCollider)//秒待ってから、敵とプレーヤーの当たり判定を元に戻す
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
     }
