@@ -1,6 +1,3 @@
-using System.IO;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class DashingEnemyController : MonoBehaviour
@@ -13,13 +10,24 @@ public class DashingEnemyController : MonoBehaviour
     [SerializeField] private float acceleration;
     [SerializeField] private float deceleration;
 
-    private float direction = 1f;
+    private float direction;
+    private float targetDirection;//target = player
     private float currentSpeed;
-    private bool isDecelerating;//減速するかどうか判断
+    private bool isDecelerating = false;//減速するかどうか判断
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //最初のplayerの方向を見る
+        if (playerTrans.position.x < this.transform.position.x)
+        {
+            direction = 1f;
+        }
+        else
+        {
+            direction = -1f;
+        }
     }
 
     private void Update()
@@ -31,14 +39,14 @@ public class DashingEnemyController : MonoBehaviour
     {
         if (!isDecelerating)
         {
-            //プレイヤーとの位置関係によって、追いかける方向を変える
+            //プレイヤーがいる方向を取得する
             if (playerTrans.position.x < this.transform.position.x)
             {
-                direction = 1f;
+                targetDirection = 1f;
             }
             else
             {
-                direction = -1f;
+                targetDirection = -1f;
             }
 
             //プレイヤーを通り過ぎたら減速
@@ -46,6 +54,10 @@ public class DashingEnemyController : MonoBehaviour
                 (direction > 0 && this.transform.position.x < playerTrans.position.x))
             {
                 isDecelerating = true;
+            }
+            else
+            {
+                direction = targetDirection;//プレイヤーのいる方向へ進む
             }
 
             currentSpeed += acceleration * Time.deltaTime; //加速
@@ -55,16 +67,18 @@ public class DashingEnemyController : MonoBehaviour
         {
             currentSpeed -= deceleration * Time.deltaTime;//減速
 
-            if  (currentSpeed <= 0f)//完全に速さがなくなったら
+            if (currentSpeed <= 0f)//完全に速さがなくなったら
             {
                 currentSpeed = 0f;
                 direction *= -1;//反転
-                spriteRenderer.flipX = direction < 0;
                 isDecelerating = false;
             }
         }
 
-        this.transform.position -= 
+        spriteRenderer.flipX = direction < 0;
+
+        this.transform.position -=
             new Vector3(currentSpeed * Time.deltaTime * direction, 0, 0);
     }
 }
+

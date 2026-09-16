@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TamaController : MonoBehaviour
 {
+    [SerializeField] private Transform cameraTrans;
+
     [SerializeField] private float moveSpeed;
 
     private float direction;

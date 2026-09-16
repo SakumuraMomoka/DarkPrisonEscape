@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -73,13 +72,13 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))//敵とぶつかったとき
         {
             Collider2D playerCollider = GetComponent<Collider2D>();
-            Collider2D enemyCollider = other.gameObject.GetComponent<Collider2D>();
-
-            Physics2D.IgnoreCollision(enemyCollider, playerCollider, true);//敵とplayerの当たり判定をなくす
+            Collider2D enemyCollider = other.collider;
 
             //敵から離れる
             float direction = this.transform.position.x - other.transform.position.x;
             rb.AddForce(new Vector2(Mathf.Sign(direction) * 3f, 1f), ForceMode2D.Impulse);
+
+            Physics2D.IgnoreCollision(enemyCollider, playerCollider, true);//敵とplayerの当たり判定をなくす
 
             StartCoroutine(RestoreCollision(enemyCollider, playerCollider));
         }
@@ -87,7 +86,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator RestoreCollision(Collider2D enemyCollider, Collider2D playerCollider)//秒待ってから、敵とプレーヤーの当たり判定を元に戻す
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
     }
