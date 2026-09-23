@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 3931294}
   - component: {fileID: 3931293}
   - component: {fileID: 3931292}
+  - component: {fileID: 3931298}
   - component: {fileID: 3931296}
   - component: {fileID: 3931297}
   m_Layer: 7
@@ -232,7 +233,7 @@ Transform:
   m_GameObject: {fileID: 3931288}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13, y: -2.68, z: 0}
+  m_LocalPosition: {x: -0.127, y: -2.76, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -355,6 +356,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3931298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3931288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67cb425bee534bb5c0cb2f5763dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStateController
+  state: {fileID: 11400000, guid: d2cde91f0a42cbd43998b4803a44ce98, type: 2}
 --- !u!1 &49262541
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +429,7 @@ GameObject:
   - component: {fileID: 164889698}
   - component: {fileID: 164889700}
   - component: {fileID: 164889701}
+  - component: {fileID: 164889702}
   m_Layer: 6
   m_Name: girl
   m_TagString: Girl
@@ -573,6 +588,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 5.37, y: 8.751146}
   m_Direction: 0
+--- !u!114 &164889702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164889693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67cb425bee534bb5c0cb2f5763dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStateController
+  state: {fileID: 0}
 --- !u!1 &347539776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,6 +1274,7 @@ GameObject:
   - component: {fileID: 896191921}
   - component: {fileID: 896191920}
   - component: {fileID: 896191926}
+  - component: {fileID: 896191927}
   m_Layer: 9
   m_Name: Flying Enemy1
   m_TagString: Enemy
@@ -1470,6 +1499,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlyingEnemyController
   playerTrans: {fileID: 3931291}
   flySpeed: 2
+--- !u!114 &896191927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896191918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092e7f9f790d8f1468c5fa605897a468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateController
+  state: {fileID: 11400000, guid: 47bd700a9b052f14f9987af2f7453e6c, type: 2}
 --- !u!1 &1123249254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,6 +1822,7 @@ GameObject:
   - component: {fileID: 1703678008}
   - component: {fileID: 1703678010}
   - component: {fileID: 1703678011}
+  - component: {fileID: 1703678012}
   m_Layer: 9
   m_Name: Dashing Enemy1
   m_TagString: Enemy
@@ -1923,6 +1966,19 @@ MonoBehaviour:
   maxSpeed: 10
   acceleration: 3
   deceleration: 3
+--- !u!114 &1703678012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703678004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092e7f9f790d8f1468c5fa605897a468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateController
+  state: {fileID: 11400000, guid: d99ef395733b790478c3f9be370fe74d, type: 2}
 --- !u!1 &1871930551
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,6 +1992,7 @@ GameObject:
   - component: {fileID: 1871930553}
   - component: {fileID: 1871930552}
   - component: {fileID: 1871930556}
+  - component: {fileID: 1871930557}
   m_Layer: 9
   m_Name: Walking Enemy1
   m_TagString: Enemy
@@ -2096,6 +2153,19 @@ MonoBehaviour:
   playerTrans: {fileID: 3931291}
   walkSpeed: 3
   stopDistance: 0.5
+--- !u!114 &1871930557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871930551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092e7f9f790d8f1468c5fa605897a468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateController
+  state: {fileID: 11400000, guid: 4c935018859f53048b3264776cb3b26e, type: 2}
 --- !u!1 &1897336329
 GameObject:
   m_ObjectHideFlags: 0

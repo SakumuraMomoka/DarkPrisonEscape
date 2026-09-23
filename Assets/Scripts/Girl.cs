@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Girl : MonoBehaviour
@@ -22,21 +23,25 @@ public class Girl : MonoBehaviour
         trans();
     }
 
-    /*private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)//collision
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Enemy"))//敵とぶつかったとき
         {
-            isTouchingPlayer = true;
+            Collider2D girlCollider = GetComponent<Collider2D>();
+            Collider2D enemyCollider = other.collider;
+
+            Physics2D.IgnoreCollision(enemyCollider, girlCollider, true);//敵とplayerの当たり判定をなくす
+
+            StartCoroutine(RestoreCollision(enemyCollider, girlCollider));
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other)
+    private IEnumerator RestoreCollision(Collider2D enemyCollider, Collider2D girlCollider)//秒待ってから、敵とプレーヤーの当たり判定を元に戻す
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isTouchingPlayer = false;
-        }
-    }*/
+        yield return new WaitForSeconds(1f);
+
+        Physics2D.IgnoreCollision(enemyCollider, girlCollider, false);
+    }
 
     private void trans()//playerのモードに応じて移動する処理
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Character/Character Data")]
-public class CharacterDate : ScriptableObject
+public class CharacterState : ScriptableObject
 {
     public string characterName;
 
