@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public CharacterState state;
+
     [SerializeField] private float walkSpeed;
     [SerializeField] private float jumpPower;
 
-    private float direction = 1;//たまの向きを変えるための変数
+    public float direction = 1;//たまの向きを変えるための変数
 
     [SerializeField] private GameObject tamaPrefab;
     [SerializeField] private Transform groundCheck;
@@ -38,24 +40,24 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        modechange();
+        ModeChange();
 
-        walk();
+        Walk();
         
-        if(canJump() && input.JumpPressed && IsGrounded() == true)
+        if(CanJump() && input.JumpPressed && IsGrounded() == true)
         {
-            jump();
+            Jump();
         }
 
-        if (canAttack() && input.SwordPressed)
+        if (CanAttack() && input.SwordPressed)
         {
-            sword();
+            Sword();
         }
 
-        if (canAttack() && input.ShootPressed)
+        if (CanAttack() && input.ShootPressed)
         {
             arrowArmSpr.enabled = true;
-            shoot();
+            Shoot();
         }
         else
         {
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour
         }
 
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
-        animator.SetBool("IsArrow", canAttack() && input.ShootPressed);
+        animator.SetBool("IsArrow", CanAttack() && input.ShootPressed);
     }
 
     private void OnCollisionEnter2D(Collision2D other)//collision
@@ -82,7 +84,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator RestoreCollision(Collider2D enemyCollider, Collider2D playerCollider)//秒待ってから、敵とプレーヤーの当たり判定を元に戻す
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
     }
@@ -104,7 +106,7 @@ public class Player : MonoBehaviour
     }
 
 
-    private void walk()//歩く
+    private void Walk()//歩く
     {
         Vector2 walk = input.WalkInput;//移動入力の値を取得
 
@@ -127,19 +129,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool canJump()//ジャンプできる条件
+    private bool CanJump()//ジャンプできる条件
     {
         return mode.CurrentMode == PlayerMode.Mode.Normal ||
                mode.CurrentMode == PlayerMode.Mode.Dakko; 
     }
 
-    private bool canAttack()//攻撃できる条件
+    private bool CanAttack()//攻撃できる条件
     {
         return mode.CurrentMode == PlayerMode.Mode.Normal ||
                mode.CurrentMode == PlayerMode.Mode.Tetunagi;
     }
 
-    private void jump()//ジャンプ
+    private void Jump()//ジャンプ
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);//y方向だけ変化させ、ジャンプする
 
@@ -155,18 +157,20 @@ public class Player : MonoBehaviour
             );
     }
 
-    private void sword()//剣で切る
+    private void Sword()//剣で切る
     {
         animator.SetTrigger("Cut");
     }
 
-    private void shoot()//弓を飛ばす
+    private void Shoot()//弓を飛ばす
     {
         if (shootTimer <= 0f)
         {
             GameObject tama = Instantiate(tamaPrefab, shootPoint.position, Quaternion.identity);//弾の生成
 
-            tama.GetComponent<TamaController>().SetDirection(direction);
+            TamaController tamaController = tama.GetComponent<TamaController>();
+            tamaController.SetDirection(direction);//playerの向きを弾の飛ぶ向きに適用する
+            tamaController.damage = state.attack;//弾に、プレイヤーの攻撃力を適用する
 
             shootTimer = shootInterval;
         }
@@ -174,7 +178,7 @@ public class Player : MonoBehaviour
         shootTimer -= Time.deltaTime;
     }
 
-    private void modechange()//モード変更の管理
+    private void ModeChange()//モード変更の管理
     {
         if (IsGrounded() == true)
         {

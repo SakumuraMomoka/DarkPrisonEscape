@@ -11,24 +11,34 @@ public class EnemyStateController : MonoBehaviour
         currentHp = state.maxHp;
     }
 
-    private void Update()
-    {
-        if (currentHp < 0)
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D other)//collision
     {
         if (other.gameObject.CompareTag("Tama"))//敵とぶつかったとき
         {
-            PlayerStateController player = other.gameObject.GetComponent<PlayerStateController>();//プレイヤーのステータスを取得する
+            TamaController tama = other.gameObject.GetComponent<TamaController>();//弾のダメージを取得する
 
-            currentHp -= player.state.attack;//プレイヤーの攻撃力分hpを減らす
-
-            Debug.Log("敵の攻撃力：" + player.state.attack);
-            Debug.Log("teki現在HP：" + currentHp);
+            TakeDamage(tama.damage);
         }
+    }
+
+    private void TakeDamage(int damage)//ダメージを受ける処理
+    {
+        currentHp -= damage;
+
+        Debug.Log("ダメージ：" + damage);
+        Debug.Log("enemy現在HP：" + currentHp);
+
+        //HPが0以下になったら死亡
+        if (currentHp <= 0)
+        {
+            currentHp = 0;
+
+            Die();
+        }
+    }
+
+    private void Die()//死亡処理
+    {
+        Destroy(this.gameObject);
     }
 }

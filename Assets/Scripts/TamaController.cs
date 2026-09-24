@@ -7,8 +7,9 @@ public class TamaController : MonoBehaviour
     [SerializeField] private float moveSpeed;
 
     private float direction;
+    public int damage;
 
-    public void SetDirection(float direction)
+    public void SetDirection(float direction)//Œü‚«
     {
         this.direction = direction;
     }

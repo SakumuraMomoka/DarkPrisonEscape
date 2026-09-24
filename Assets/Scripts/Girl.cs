@@ -30,7 +30,7 @@ public class Girl : MonoBehaviour
             Collider2D girlCollider = GetComponent<Collider2D>();
             Collider2D enemyCollider = other.collider;
 
-            Physics2D.IgnoreCollision(enemyCollider, girlCollider, true);//敵とplayerの当たり判定をなくす
+            Physics2D.IgnoreCollision(enemyCollider, girlCollider, true);//敵とgirlの当たり判定をなくす
 
             StartCoroutine(RestoreCollision(enemyCollider, girlCollider));
         }
@@ -38,19 +38,32 @@ public class Girl : MonoBehaviour
 
     private IEnumerator RestoreCollision(Collider2D enemyCollider, Collider2D girlCollider)//秒待ってから、敵とプレーヤーの当たり判定を元に戻す
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         Physics2D.IgnoreCollision(enemyCollider, girlCollider, false);
     }
 
-    private void trans()//playerのモードに応じて移動する処理
+    private void trans()//playerのモードに応じた調整
     {
-        if (playerMode.CurrentMode == PlayerMode.Mode.Tetunagi 
-            || playerMode.CurrentMode == PlayerMode.Mode.Dakko)
+        if (playerMode.CurrentMode == PlayerMode.Mode.Tetunagi)
         { 
             spriteRenderer.enabled = false;
 
-            this.transform.position = player.transform.position + new Vector3(0, 0.5f, 0);//地面に埋まらないための処理
+            //手繋ぎの位置にするための処理
+            if (player.GetComponent<Player>().direction == 1)
+            {
+                this.transform.position = player.transform.position + new Vector3(-0.45f, -0.15f, 0);
+            }
+            else
+            {
+                this.transform.position = player.transform.position + new Vector3(0.45f, -0.15f, 0);
+            }
+        }
+        else if (playerMode.CurrentMode == PlayerMode.Mode.Dakko)
+        {
+            spriteRenderer.enabled = false;
+
+            this.transform.position = player.transform.position;
         }
         else if (playerMode.CurrentMode == PlayerMode.Mode.Normal)
         {

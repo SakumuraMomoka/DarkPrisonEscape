@@ -32,10 +32,10 @@ public class DashingEnemyController : MonoBehaviour
 
     private void Update()
     {
-        dash();
+        Dash();
     }
 
-    private void dash()
+    private void Dash()
     {
         if (!isDecelerating)
         {

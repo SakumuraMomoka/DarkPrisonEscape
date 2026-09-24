@@ -17,10 +17,28 @@ public class PlayerStateController : MonoBehaviour
         {
             EnemyStateController enemy = other.gameObject.GetComponent<EnemyStateController>();//その敵のステータスを取得する
 
-            currentHp -= enemy.state.attack;//その敵の攻撃力分hpを減らす
-
-            Debug.Log("敵の攻撃力：" + enemy.state.attack);
-            Debug.Log("player現在HP：" + currentHp);
+            TakeDamage(enemy.state.attack);
         }
+    }
+
+    private void TakeDamage(int damage)//ダメージを受ける処理
+    {
+        currentHp -= damage;
+
+        Debug.Log("ダメージ：" + damage);
+        Debug.Log("player現在HP：" + currentHp);
+
+        //HPが0以下になったら死亡
+        if (currentHp <= 0)
+        {
+            currentHp = 0;
+
+            Die();
+        }
+    }
+
+    private void Die()//死亡処理
+    {
+
     }
 }
