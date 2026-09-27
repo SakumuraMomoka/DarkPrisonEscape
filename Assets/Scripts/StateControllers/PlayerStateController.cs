@@ -39,6 +39,6 @@ public class PlayerStateController : MonoBehaviour
 
     private void Die()//死亡処理
     {
-
+        GameOverController.instance.GameOver();
     }
 }

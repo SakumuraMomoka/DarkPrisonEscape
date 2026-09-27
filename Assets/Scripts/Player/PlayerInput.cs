@@ -1,8 +1,11 @@
+
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
     private PlayerInputActions input;
+
+    public bool canControl = true;//プレイヤーを操作していいかどうか
 
     public Vector2 WalkInput { get; private set; }//歩く
     public bool JumpPressed{ get; private set; }//ジャンプ
@@ -11,6 +14,8 @@ public class PlayerInput : MonoBehaviour
     public bool DakkoPressed { get; private set; }//抱っこモードに変更
     public bool NormalPressed { get; private set; }//ノーマルモード
     public bool ShootPressed {  get; private set; }//弓発射
+
+    public bool SkeyPressed { get; private set; }//弓発射
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -44,5 +49,7 @@ public class PlayerInput : MonoBehaviour
         NormalPressed = input.Player.Normal.WasPressedThisFrame();
 
         ShootPressed = input.Player.Shoot.IsPressed();
+
+        SkeyPressed = input.Player.Skey.WasPressedThisFrame();
     }
 }

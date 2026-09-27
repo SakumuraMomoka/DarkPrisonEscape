@@ -40,6 +40,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (!input.canControl)
+        {
+            return;
+        }
+
         ModeChange();
 
         Walk();

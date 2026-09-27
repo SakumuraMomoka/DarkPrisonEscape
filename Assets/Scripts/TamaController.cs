@@ -9,7 +9,7 @@ public class TamaController : MonoBehaviour
     private float direction;
     public int damage;
 
-    public void SetDirection(float direction)//Œü‚«
+    public void SetDirection(float direction)//çŽ‰ã®å‘ã
     {
         this.direction = direction;
     }
@@ -21,15 +21,16 @@ public class TamaController : MonoBehaviour
         destroy();
     }
 
-    private void move()//”­ŽË‚³‚ê‚½Œã‚Ì’e‚Ì“®‚«•û
+    private void move()//çŽ‰ã®å‹•ã
     {
         this.transform.position 
             += new Vector3(moveSpeed * Time.deltaTime, 0, 0) * direction;
     }
 
-    private void destroy()//‰æ–ÊŠO‚És‚Á‚½‚çíœ‚·‚é
+    private void destroy()//ç”»é¢å¤–ã«ã„ã£ãŸã‚‰ã€çƒã‚’å‰Šé™¤ã™ã‚‹
     {
-        if (this.transform.position.x > 10 || this.transform.position.x < -10)
+        if (this.transform.position.x > cameraTrans.transform.position.x + 10 || 
+            this.transform.position.x < cameraTrans.transform.position.x - 10)
         {
             Destroy(this.gameObject);
         }

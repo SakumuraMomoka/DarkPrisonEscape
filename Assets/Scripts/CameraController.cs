@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
         move();
     }
 
-    private void move()//ƒJƒƒ‰‚ÌˆÊ’u‚ğƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ÉŠî‚Ã‚¢‚Ä•Ï‚¦‚é
+    private void move()//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ã‚«ãƒ¡ãƒ©ã‚’è¿½å¾“ã™ã‚‹
     {
         this.transform.position 
             = new Vector3(playerTrans.position.x + xDifference, this.transform.position.y, this.transform.position.z);
