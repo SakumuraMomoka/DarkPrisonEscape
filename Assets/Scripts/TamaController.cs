@@ -2,12 +2,17 @@ using UnityEngine;
 
 public class TamaController : MonoBehaviour
 {
-    [SerializeField] private Transform cameraTrans;
+    private Transform cameraTrans;
 
     [SerializeField] private float moveSpeed;
 
     private float direction;
     public int damage;
+
+    private void Awake()
+    {
+        cameraTrans = Camera.main.transform;
+    }
 
     public void SetDirection(float direction)//玉の向き
     {

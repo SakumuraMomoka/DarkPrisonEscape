@@ -77,6 +77,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Wkey",
+                    "type": "Button",
+                    "id": "7f221b06-3c75-42d3-9642-0c07168b34e6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -149,7 +158,7 @@
                 {
                     "name": "",
                     "id": "d3e2692e-cd2e-4a60-8304-4e6b893f2951",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -160,7 +169,7 @@
                 {
                     "name": "",
                     "id": "84530e4a-8642-4a70-8ecb-0c87458ddae9",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -187,6 +196,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Skey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "823224ec-59a9-4ca3-a79a-27378be41df6",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Wkey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

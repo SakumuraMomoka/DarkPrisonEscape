@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStateController : MonoBehaviour
 {
     public CharacterState state;
 
     private int currentHp;
+
+    [SerializeField] private Image[] heart;
 
     private void Start()
     {
@@ -28,6 +31,18 @@ public class PlayerStateController : MonoBehaviour
         Debug.Log("ダメージ：" + damage);
         Debug.Log("player現在HP：" + currentHp);
 
+        //playerのhpによって、ハートを消す
+        switch(currentHp)
+        {
+            case 2: heart[2].enabled = false;
+                break;
+            case 1:
+                heart[1].enabled = false;
+                break;
+            case 0:
+                heart[0].enabled = false;
+                break;
+        }
         //HPが0以下になったら死亡
         if (currentHp <= 0)
         {

@@ -14,8 +14,8 @@ public class PlayerInput : MonoBehaviour
     public bool DakkoPressed { get; private set; }//抱っこモードに変更
     public bool NormalPressed { get; private set; }//ノーマルモード
     public bool ShootPressed {  get; private set; }//弓発射
-
-    public bool SkeyPressed { get; private set; }//弓発射
+    public bool SkeyPressed { get; private set; }//S
+    public bool WkeyPressed { get; private set; }//W
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -51,5 +51,7 @@ public class PlayerInput : MonoBehaviour
         ShootPressed = input.Player.Shoot.IsPressed();
 
         SkeyPressed = input.Player.Skey.WasPressedThisFrame();
+
+        WkeyPressed = input.Player.Wkey.WasPressedThisFrame();
     }
 }

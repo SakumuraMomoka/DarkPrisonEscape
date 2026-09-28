@@ -185,17 +185,23 @@ public class Player : MonoBehaviour
 
     private void ModeChange()//モード変更の管理
     {
-        if (IsGrounded() == true)
-        {
             if (input.NormalPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
 
-            if (isTouchingGirl == true)
+        if (isTouchingGirl == true || mode.CurrentMode == PlayerMode.Mode.Tetunagi)
+        {
+            if (input.DakkoPressed)
             {
-                if (input.TetunagiPressed) mode.ChangeMode(PlayerMode.Mode.Tetunagi);
-                if (input.DakkoPressed) mode.ChangeMode(PlayerMode.Mode.Dakko);
+                mode.ChangeMode(PlayerMode.Mode.Dakko);
             }
         }
-
+           
+        if (isTouchingGirl == true)
+        {
+            if (input.TetunagiPressed)
+            {
+                mode.ChangeMode(PlayerMode.Mode.Tetunagi);
+            }
+        }
     }
 
 }

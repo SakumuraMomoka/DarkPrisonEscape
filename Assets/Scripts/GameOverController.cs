@@ -42,7 +42,7 @@ public class GameOverController : MonoBehaviour
             return;
         }
 
-        if (input.DakkoPressed)
+        if (input.WkeyPressed)
         {
             selectedIndex--;
 

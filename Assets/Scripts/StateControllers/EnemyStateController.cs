@@ -13,7 +13,7 @@ public class EnemyStateController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)//collision
     {
-        if (other.gameObject.CompareTag("Tama"))//敵とぶつかったとき
+        if (other.gameObject.CompareTag("Tama"))//たまとぶつかったとき
         {
             TamaController tama = other.gameObject.GetComponent<TamaController>();//弾のダメージを取得する
 

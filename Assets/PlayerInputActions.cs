@@ -163,6 +163,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Wkey"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f221b06-3c75-42d3-9642-0c07168b34e6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -235,7 +244,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d3e2692e-cd2e-4a60-8304-4e6b893f2951"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -246,7 +255,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""84530e4a-8642-4a70-8ecb-0c87458ddae9"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -275,6 +284,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Skey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""823224ec-59a9-4ca3-a79a-27378be41df6"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Wkey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -291,6 +311,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Normal = m_Player.FindAction("Normal", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Skey = m_Player.FindAction("Skey", throwIfNotFound: true);
+        m_Player_Wkey = m_Player.FindAction("Wkey", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -379,6 +400,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Normal;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Skey;
+    private readonly InputAction m_Player_Wkey;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -422,6 +444,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Skey".
         /// </summary>
         public InputAction @Skey => m_Wrapper.m_Player_Skey;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Wkey".
+        /// </summary>
+        public InputAction @Wkey => m_Wrapper.m_Player_Wkey;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -472,6 +498,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Skey.started += instance.OnSkey;
             @Skey.performed += instance.OnSkey;
             @Skey.canceled += instance.OnSkey;
+            @Wkey.started += instance.OnWkey;
+            @Wkey.performed += instance.OnWkey;
+            @Wkey.canceled += instance.OnWkey;
         }
 
         /// <summary>
@@ -507,6 +536,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Skey.started -= instance.OnSkey;
             @Skey.performed -= instance.OnSkey;
             @Skey.canceled -= instance.OnSkey;
+            @Wkey.started -= instance.OnWkey;
+            @Wkey.performed -= instance.OnWkey;
+            @Wkey.canceled -= instance.OnWkey;
         }
 
         /// <summary>
@@ -603,5 +635,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSkey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Wkey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnWkey(InputAction.CallbackContext context);
     }
 }
