@@ -6,15 +6,32 @@ public class FlyingEnemyController : MonoBehaviour
 
     [SerializeField] private float flySpeed;
 
+    private bool canMove = false;
+
     private void Update()
     {
-        fly();
+        CanMoveCheck();
+
+        if (!canMove)
+        {
+            return;
+        }
+
+        Fly();
     }
 
-    private void fly()
+    private void Fly()//playerに向かって動く
     {
         Vector3 direction = playerTrans.position - this.transform.position;
 
         this.transform.position += direction.normalized * flySpeed * Time.deltaTime;
+    }
+
+    private void CanMoveCheck()
+    {
+        if (this.transform.position.x - playerTrans.position.x < 9f)//9 = ちょうど画面に映る距離
+        {
+            canMove = true;
+        }
     }
 }

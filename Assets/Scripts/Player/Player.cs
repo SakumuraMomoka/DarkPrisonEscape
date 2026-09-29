@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     private float shootTimer;
 
     private bool isTouchingGirl = false;
+    private bool canTakeDamage = true;
 
     private PlayerInput input;
     private PlayerMode mode;
@@ -78,6 +79,13 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))//敵とぶつかったとき
         {
+            if (!canTakeDamage)
+            {
+                return;
+            }
+
+            canTakeDamage = false;//ダメージを受けれない状態にする
+
             Collider2D playerCollider = GetComponent<Collider2D>();
             Collider2D enemyCollider = other.collider;
 
@@ -91,7 +99,12 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
+        if (enemyCollider != null && playerCollider != null)
+        {
+            Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
+        }
+
+        canTakeDamage = true;//再びダメージを受けられるようにする
     }
 
     private void OnTriggerEnter2D(Collider2D other)//他のオブジェクトと触れたとき

@@ -18,6 +18,14 @@ public class PlayerStateController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))//敵とぶつかったとき
         {
+            foreach (ContactPoint2D contact in other.contacts)//接触情報の取得
+            {
+                if (contact.normal.y > 0.5f)//敵が足元に居る時、ダメージなし
+                {
+                    return;
+                }
+            }
+
             EnemyStateController enemy = other.gameObject.GetComponent<EnemyStateController>();//その敵のステータスを取得する
 
             TakeDamage(enemy.state.attack);

@@ -13,13 +13,15 @@ public class DashingEnemyController : MonoBehaviour
     private float direction;
     private float targetDirection;//target = player
     private float currentSpeed;
-    private bool isDecelerating = false;//Œ¸‘¬‚·‚é‚©‚Ç‚¤‚©”»’f
+    private bool isDecelerating = false;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½f
+
+    private bool canMove = false;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        //Å‰‚Ìplayer‚Ì•ûŒü‚ğŒ©‚é
+        //ï¿½Åï¿½ï¿½ï¿½playerï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (playerTrans.position.x < this.transform.position.x)
         {
             direction = 1f;
@@ -32,6 +34,13 @@ public class DashingEnemyController : MonoBehaviour
 
     private void Update()
     {
+        CanMoveCheck();
+
+        if (!canMove)
+        {
+            return;
+        }
+
         Dash();
     }
 
@@ -39,7 +48,7 @@ public class DashingEnemyController : MonoBehaviour
     {
         if (!isDecelerating)
         {
-            //ƒvƒŒƒCƒ„[‚ª‚¢‚é•ûŒü‚ğæ“¾‚·‚é
+            //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
             if (playerTrans.position.x < this.transform.position.x)
             {
                 targetDirection = 1f;
@@ -49,7 +58,7 @@ public class DashingEnemyController : MonoBehaviour
                 targetDirection = -1f;
             }
 
-            //ƒvƒŒƒCƒ„[‚ğ’Ê‚è‰ß‚¬‚½‚çŒ¸‘¬
+            //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½Ê‚ï¿½ß‚ï¿½ï¿½ï¿½ï¿½çŒ¸ï¿½ï¿½
             if ((direction < 0 && this.transform.position.x > playerTrans.position.x) ||
                 (direction > 0 && this.transform.position.x < playerTrans.position.x))
             {
@@ -57,20 +66,20 @@ public class DashingEnemyController : MonoBehaviour
             }
             else
             {
-                direction = targetDirection;//ƒvƒŒƒCƒ„[‚Ì‚¢‚é•ûŒü‚Öi‚Ş
+                direction = targetDirection;//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öiï¿½ï¿½
             }
 
-            currentSpeed += acceleration * Time.deltaTime; //‰Á‘¬
-            currentSpeed = Mathf.Min(currentSpeed, maxSpeed);//Å‘å‘¬“x‚ğ’´‚¦‚È‚¢‚æ‚¤‚É
+            currentSpeed += acceleration * Time.deltaTime; //ï¿½ï¿½ï¿½ï¿½
+            currentSpeed = Mathf.Min(currentSpeed, maxSpeed);//ï¿½Å‘å‘¬ï¿½xï¿½ğ’´‚ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½ï¿½
         }
         else
         {
-            currentSpeed -= deceleration * Time.deltaTime;//Œ¸‘¬
+            currentSpeed -= deceleration * Time.deltaTime;//ï¿½ï¿½ï¿½ï¿½
 
-            if (currentSpeed <= 0f)//Š®‘S‚É‘¬‚³‚ª‚È‚­‚È‚Á‚½‚ç
+            if (currentSpeed <= 0f)//ï¿½ï¿½ï¿½Sï¿½É‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 currentSpeed = 0f;
-                direction *= -1;//”½“]
+                direction *= -1;//ï¿½ï¿½ï¿½]
                 isDecelerating = false;
             }
         }
@@ -80,5 +89,14 @@ public class DashingEnemyController : MonoBehaviour
         this.transform.position -=
             new Vector3(currentSpeed * Time.deltaTime * direction, 0, 0);
     }
+
+    private void CanMoveCheck()
+    {
+        if (this.transform.position.x - playerTrans.position.x < 9f)//9 = ã¡ã‚‡ã†ã©ç”»é¢ã«æ˜ ã‚‹è·é›¢
+        {
+            canMove = true;
+        }
+    }
+
 }
 
