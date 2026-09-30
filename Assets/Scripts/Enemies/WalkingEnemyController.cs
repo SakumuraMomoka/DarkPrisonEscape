@@ -11,6 +11,8 @@ public class WalkingEnemyController : MonoBehaviour
 
     private float direction;
 
+    private bool canMove = false;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -18,6 +20,13 @@ public class WalkingEnemyController : MonoBehaviour
 
     private void Update()
     {
+        CanMoveCheck();
+
+        if (!canMove)
+        {
+            return;
+        }
+
         walk();
     }
 
@@ -25,13 +34,13 @@ public class WalkingEnemyController : MonoBehaviour
     {
         float distance = Mathf.Abs(playerTrans.position.x - this.transform.position.x);
 
-        //プレイヤーとの距離が一定以下なら停止
+        //player縺ｨ縺ｮ霍晞屬縺御ｸ螳壻ｻ･荳九↓縺ｪ縺｣縺溘ｉ蛛懈ｭ｢
         if (distance < stopDistance)
         {
             return;
         }
 
-        //プレイヤーがいる方向を取得する
+        //player縺ｨ縺ｮ菴咲ｽｮ髢｢菫ゅ↓繧医▲縺ｦ縲《prite繧貞渚霆｢
         if (playerTrans.position.x < this.transform.position.x)
         {
             direction = 1f;
@@ -45,5 +54,13 @@ public class WalkingEnemyController : MonoBehaviour
 
         this.transform.position -=
             new Vector3(walkSpeed * Time.deltaTime * direction, 0, 0);
+    }
+
+    private void CanMoveCheck()
+    {
+        if (this.transform.position.x - playerTrans.position.x < 9f)//9 = 縺｡繧�縺�縺ｩ逕ｻ髱｢縺ｫ譏繧玖ｷ晞屬
+        {
+            canMove = true;
+        }
     }
 }
