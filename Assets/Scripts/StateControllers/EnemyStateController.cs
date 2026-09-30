@@ -21,6 +21,14 @@ public class EnemyStateController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)//剣に当たったら、一撃必殺
+    {
+        if (other.CompareTag("Sword"))
+        {
+            Die();
+        }
+    }
+
     private void TakeDamage(int damage)//ダメージを受ける処理
     {
         currentHp -= damage;

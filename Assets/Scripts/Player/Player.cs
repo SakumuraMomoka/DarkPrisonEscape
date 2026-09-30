@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 
     private bool isTouchingGirl = false;
     private bool canTakeDamage = true;
+    private bool isSwordAttacking = false;
 
     private PlayerInput input;
     private PlayerMode mode;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer arrowArmSpr;
+    private Collider2D swordCol;
 
     private void Awake()
     {
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         arrowArmSpr = transform.Find("arrow arm").GetComponent<SpriteRenderer>();
+        swordCol = transform.Find("swordCol").GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -58,8 +61,12 @@ public class Player : MonoBehaviour
         if (CanAttack() && input.SwordPressed)
         {
             Sword();
-        }
 
+            if (!isSwordAttacking)
+            {
+                StartCoroutine(SwordColChange());
+            }
+        }
         if (CanAttack() && input.ShootPressed)
         {
             arrowArmSpr.enabled = true;
@@ -180,6 +187,16 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Cut");
     }
 
+    private IEnumerator SwordColChange()//秒間剣の当たり判定をオンにする
+    {
+        isSwordAttacking = true;
+        swordCol.enabled = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        swordCol.enabled = false;
+        isSwordAttacking = false;
+    }
     private void Shoot()//弓を飛ばす
     {
         if (shootTimer <= 0f)

@@ -26,6 +26,14 @@ public class TamaController : MonoBehaviour
         destroy();
     }
 
+    private void OnCollisionEnter2D(Collision2D other)//collision
+    {
+        if (other.gameObject.CompareTag("Enemy"))//敵とぶつかったとき
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void move()//玉の動き
     {
         this.transform.position 

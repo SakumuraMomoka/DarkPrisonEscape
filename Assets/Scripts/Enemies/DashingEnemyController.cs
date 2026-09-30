@@ -92,7 +92,7 @@ public class DashingEnemyController : MonoBehaviour
 
     private void CanMoveCheck()
     {
-        if (this.transform.position.x - playerTrans.position.x < 9f)//9 = ちょうど画面に映る距離
+        if (this.transform.position.x - playerTrans.position.x < 13f)//11 = ちょっと画面外で動き出す
         {
             canMove = true;
         }
