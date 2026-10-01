@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,31 @@ public class PlayerStateController : MonoBehaviour
         currentHp = state.maxHp;
     }
 
+    private void Update()
+    {
+        //HPが0以下になったら死亡
+        if (currentHp <= 0 || this.transform.position.y < -7)
+        {
+            currentHp = 0;
+
+            Die();
+        }
+
+        //playerのhpによって、ハートを消す
+        switch (currentHp)
+        {
+            case 2:
+                heart[2].enabled = false;
+                break;
+            case 1:
+                heart[1].enabled = false;
+                break;
+            case 0:
+                heart[0].enabled = false;
+                break;
+        }
+
+    }
     private void OnCollisionEnter2D(Collision2D other)//collision
     {
         if (other.gameObject.CompareTag("Enemy"))//敵とぶつかったとき
@@ -39,25 +65,6 @@ public class PlayerStateController : MonoBehaviour
         Debug.Log("ダメージ：" + damage);
         Debug.Log("player現在HP：" + currentHp);
 
-        //playerのhpによって、ハートを消す
-        switch(currentHp)
-        {
-            case 2: heart[2].enabled = false;
-                break;
-            case 1:
-                heart[1].enabled = false;
-                break;
-            case 0:
-                heart[0].enabled = false;
-                break;
-        }
-        //HPが0以下になったら死亡
-        if (currentHp <= 0)
-        {
-            currentHp = 0;
-
-            Die();
-        }
     }
 
     private void Die()//死亡処理

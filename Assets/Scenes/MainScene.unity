@@ -233,7 +233,7 @@ Transform:
   m_GameObject: {fileID: 3931288}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60.8, y: -0.7, z: 0}
+  m_LocalPosition: {x: 154.3, y: -2.8, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -954,7 +954,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!212 &162360813
 SpriteRenderer:
   serializedVersion: 2
@@ -1118,7 +1118,7 @@ Transform:
   m_GameObject: {fileID: 164889693}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -3, z: 0}
+  m_LocalPosition: {x: -0.04, y: -3, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2037,7 +2037,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!212 &482623361
 SpriteRenderer:
   serializedVersion: 2
@@ -2588,7 +2588,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!114 &545196095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3352,7 +3352,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!212 &640504109
 SpriteRenderer:
   serializedVersion: 2
@@ -4476,7 +4476,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!114 &896790652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4738,7 +4738,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!212 &916388346
 SpriteRenderer:
   serializedVersion: 2
@@ -5280,7 +5280,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!212 &1012213030
 SpriteRenderer:
   serializedVersion: 2
@@ -5806,7 +5806,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!114 &1191362477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7421,7 +7421,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!212 &1514125586
 SpriteRenderer:
   serializedVersion: 2
@@ -8646,7 +8646,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!212 &1732068686
 SpriteRenderer:
   serializedVersion: 2
@@ -8971,7 +8971,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!212 &1853369068
 SpriteRenderer:
   serializedVersion: 2
@@ -10596,7 +10596,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!212 &5556785669021621032
 SpriteRenderer:
   serializedVersion: 2
@@ -10820,7 +10820,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!1 &7675574580940918324
 GameObject:
   m_ObjectHideFlags: 0

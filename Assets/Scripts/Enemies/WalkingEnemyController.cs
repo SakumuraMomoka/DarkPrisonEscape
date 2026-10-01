@@ -3,6 +3,7 @@ using UnityEngine;
 public class WalkingEnemyController : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+    private Rigidbody2D rb;
 
     [SerializeField] private Transform playerTrans;
 
@@ -16,6 +17,7 @@ public class WalkingEnemyController : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -43,22 +45,21 @@ public class WalkingEnemyController : MonoBehaviour
         //playerとの位置関係によって、spriteを反転
         if (playerTrans.position.x < this.transform.position.x)
         {
-            direction = 1f;
+            direction = -1f;
         }
         else
         {
-            direction = -1f;
+            direction = 1f;
         }
 
-        spriteRenderer.flipX = direction < 0;
+        spriteRenderer.flipX = direction > 0;
 
-        this.transform.position -=
-            new Vector3(walkSpeed * Time.deltaTime * direction, 0, 0);
+        rb.linearVelocity = new Vector2 (direction * walkSpeed, rb.linearVelocity.y);
     }
 
     private void CanMoveCheck()
     {
-        if (this.transform.position.x - playerTrans.position.x < 9f)//9 = ちょうど画面に映る距離
+        if (Mathf.Abs(this.transform.position.x - playerTrans.position.x) < 9f)//9 = ちょうど画面に映る距離
         {
             canMove = true;
         }

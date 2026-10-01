@@ -29,7 +29,7 @@ public class FlyingEnemyController : MonoBehaviour
 
     private void CanMoveCheck()
     {
-        if (this.transform.position.x - playerTrans.position.x < 9f)//9 = ちょうど画面に映る距離
+        if (Mathf.Abs(this.transform.position.x - playerTrans.position.x) < 9f)//9 = ちょうど画面に映る距離
         {
             canMove = true;
         }
