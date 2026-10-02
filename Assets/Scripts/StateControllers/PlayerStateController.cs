@@ -25,21 +25,9 @@ public class PlayerStateController : MonoBehaviour
             Die();
         }
 
-        //playerのhpによって、ハートを消す
-        switch (currentHp)
-        {
-            case 2:
-                heart[2].enabled = false;
-                break;
-            case 1:
-                heart[1].enabled = false;
-                break;
-            case 0:
-                heart[0].enabled = false;
-                break;
-        }
-
+        UpdateHearts();
     }
+
     private void OnCollisionEnter2D(Collision2D other)//collision
     {
         if (other.gameObject.CompareTag("Enemy"))//敵とぶつかったとき
@@ -65,6 +53,17 @@ public class PlayerStateController : MonoBehaviour
         Debug.Log("ダメージ：" + damage);
         Debug.Log("player現在HP：" + currentHp);
 
+    }
+
+    private void UpdateHearts()//playerのhpによって、ハートを消す
+    {
+        for (int i = 0; i < heart.Length; i++)
+        {
+            if (heart[i] != null)
+            {
+                heart[i].enabled = i < currentHp;
+            }
+        }
     }
 
     private void Die()//死亡処理

@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Tama
   - Sword
+  - Asiba
   layers:
   - Default
   - TransparentFX
