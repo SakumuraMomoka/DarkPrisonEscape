@@ -6,7 +6,7 @@ public class AsibaController : MonoBehaviour
     [SerializeField] private GateController gateController;
     public int buttonNumber;
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
         if (buttonNumber == 1 && other.gameObject.CompareTag("Player"))
         {
@@ -29,7 +29,7 @@ public class AsibaController : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other)
+    /*private void OnCollisionExit2D(Collision2D other)
     {
         if (buttonNumber == 1 && other.gameObject.CompareTag("Player"))
         {
@@ -50,5 +50,5 @@ public class AsibaController : MonoBehaviour
         {
             gateController.SetButton(2, false);
         }
-    }
+    }*/
 }

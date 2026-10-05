@@ -36,11 +36,18 @@ public class Girl : MonoBehaviour
         }
     }
 
-    private IEnumerator RestoreCollision(Collider2D enemyCollider, Collider2D girlCollider)//秒待ってから、敵とプレーヤーの当たり判定を元に戻す
+    private IEnumerator RestoreCollision(Collider2D enemyCollider, Collider2D girlCollider)//秒待ってから、敵とgirlの当たり判定を元に戻す
     {
         yield return new WaitForSeconds(2f);
 
-        Physics2D.IgnoreCollision(enemyCollider, girlCollider, false);
+        if (enemyCollider != null && girlCollider != null)
+        {
+            Physics2D.IgnoreCollision(
+                enemyCollider,
+                girlCollider,
+                false
+            );
+        }
     }
 
     private void trans()//playerのモードに応じた調整

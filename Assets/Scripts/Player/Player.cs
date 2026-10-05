@@ -144,12 +144,12 @@ public class Player : MonoBehaviour
         //スプライトの反転
         if(walk.x > 0)
         {
-            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            direction = 1;
+            transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);//スプライト反転
+            direction = 1;//弾の向き
         }
         else if(walk.x < 0)
         {
-            transform.localScale = new Vector3(-0.1f, 0.1f, 0.1f);
+            transform.localScale = new Vector3(-0.08f, 0.08f, 0.08f);
             direction = -1;
         }
     }
