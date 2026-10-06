@@ -16,8 +16,8 @@ public class PlayerInput : MonoBehaviour
     public bool ShootPressed {  get; private set; }//弓発射
     public bool SkeyPressed { get; private set; }//S
     public bool WkeyPressed { get; private set; }//W
+    public bool BkeyPressed { get; private set; }//B
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         input = new PlayerInputActions();
@@ -53,5 +53,7 @@ public class PlayerInput : MonoBehaviour
         SkeyPressed = input.Player.Skey.WasPressedThisFrame();
 
         WkeyPressed = input.Player.Wkey.WasPressedThisFrame();
+
+        BkeyPressed = input.Player.Bkey.WasPressedThisFrame();
     }
 }

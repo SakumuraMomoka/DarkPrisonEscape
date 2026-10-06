@@ -172,6 +172,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bkey"",
+                    ""type"": ""Button"",
+                    ""id"": ""1510568f-18da-459d-bb0e-ecdf01fb8edc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -295,6 +304,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Wkey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16df2793-a44a-4184-a2c9-ef1c325fe332"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bkey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -312,6 +332,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Skey = m_Player.FindAction("Skey", throwIfNotFound: true);
         m_Player_Wkey = m_Player.FindAction("Wkey", throwIfNotFound: true);
+        m_Player_Bkey = m_Player.FindAction("Bkey", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -401,6 +422,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Skey;
     private readonly InputAction m_Player_Wkey;
+    private readonly InputAction m_Player_Bkey;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -448,6 +470,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Wkey".
         /// </summary>
         public InputAction @Wkey => m_Wrapper.m_Player_Wkey;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Bkey".
+        /// </summary>
+        public InputAction @Bkey => m_Wrapper.m_Player_Bkey;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -501,6 +527,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Wkey.started += instance.OnWkey;
             @Wkey.performed += instance.OnWkey;
             @Wkey.canceled += instance.OnWkey;
+            @Bkey.started += instance.OnBkey;
+            @Bkey.performed += instance.OnBkey;
+            @Bkey.canceled += instance.OnBkey;
         }
 
         /// <summary>
@@ -539,6 +568,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Wkey.started -= instance.OnWkey;
             @Wkey.performed -= instance.OnWkey;
             @Wkey.canceled -= instance.OnWkey;
+            @Bkey.started -= instance.OnBkey;
+            @Bkey.performed -= instance.OnBkey;
+            @Bkey.canceled -= instance.OnBkey;
         }
 
         /// <summary>
@@ -642,5 +674,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnWkey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Bkey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBkey(InputAction.CallbackContext context);
     }
 }

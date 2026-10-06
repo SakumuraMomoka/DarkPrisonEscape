@@ -14,9 +14,16 @@ public class GameOverController : MonoBehaviour
     [SerializeField] private PlayerInput input;
 
     private int selectedIndex = 0;
+    private bool isGameOver = false;
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instance = this;
 
         gameOverUI.SetActive(false);
@@ -24,14 +31,17 @@ public class GameOverController : MonoBehaviour
 
     public void GameOver()//playerのhpが０になった時の処理
     {
-        input.canControl = false;//プレイヤーを操作不能にする
+        if (isGameOver)
+            return;
 
-        gameOverUI.SetActive(true); 
+        isGameOver = true;//playerを操作不能にする
+
+        input.canControl = false;
+        gameOverUI.SetActive(true);
 
         Time.timeScale = 0f;
 
         selectedIndex = 0;
-
         UpdateSelection();
     }
 
@@ -110,8 +120,14 @@ public class GameOverController : MonoBehaviour
 
     private void GoToTitle()
     {
-        Time.timeScale = 1f;
-
         SceneManager.LoadScene("Title");
+
+        Time.timeScale = 1f;
+    }
+
+    private void OnDestroy()
+    {
+        // Time.timeScaleが0のまま残らないようにする
+        Time.timeScale = 1f;
     }
 }
