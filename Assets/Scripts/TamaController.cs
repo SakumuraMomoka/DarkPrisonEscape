@@ -4,24 +4,24 @@ public class TamaController : MonoBehaviour
 {
     private Transform cameraTrans;
 
-    [SerializeField] private float moveSpeed;
-
-    private float direction;
+    [SerializeField] private float speed;
     public int damage;
+
+    private Vector2 direction;
 
     private void Awake()
     {
         cameraTrans = Camera.main.transform;
     }
 
-    public void SetDirection(float direction)//玉の向き
+    public void SetDirection(Vector2 direction)
     {
-        this.direction = direction;
+        this.direction = direction.normalized;
     }
 
     private void Update()
     {
-        move();
+        transform.position += (Vector3)(direction * speed * Time.deltaTime);
 
         destroy();
     }
@@ -32,12 +32,6 @@ public class TamaController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
-
-    private void move()//玉の動き
-    {
-        this.transform.position 
-            += new Vector3(moveSpeed * Time.deltaTime, 0, 0) * direction;
     }
 
     private void destroy()//画面外にいったら、球を削除する

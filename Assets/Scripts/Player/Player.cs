@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer arrowArmSpr;
     private Collider2D swordCol;
+    private Camera mainCamera;
 
     private void Awake()
     {
@@ -40,6 +42,7 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         arrowArmSpr = transform.Find("arrow arm").GetComponent<SpriteRenderer>();
         swordCol = transform.Find("swordCol").GetComponent<Collider2D>();
+        mainCamera = Camera.main;
     }
 
     private void Update()
@@ -67,6 +70,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(SwordColChange());
             }
         }
+
         if (CanAttack() && input.ShootPressed)
         {
             arrowArmSpr.enabled = true;
@@ -201,10 +205,36 @@ public class Player : MonoBehaviour
     {
         if (shootTimer <= 0f)
         {
+            Vector3 mousePosition = Mouse.current.position.ReadValue();//マウスカーソルの位置を取得
+
+            Vector3 worldPosition = 
+                mainCamera.ScreenToWorldPoint(mousePosition);//スクリーン座標→ワールド座標
+
+            worldPosition.z = shootPoint.position.z;//z座標を合わせる
+
+            Vector2 shootDirection =
+                (worldPosition - shootPoint.position).normalized;//弾の発射方向
+
+            //playerが向いている方向と反対側に弾を飛ばさないようにする
+            if ((direction == 1 && shootDirection.x < 0) || (direction == -1 && shootDirection.x > 0))
+            {
+                shootDirection.x = 0;
+            }
+
+            Transform arm = transform.Find("arrow arm");
+            
+            float angle =
+            Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
+
+            arm.rotation =
+                Quaternion.Euler(0f, 0f, angle);
+
             GameObject tama = Instantiate(tamaPrefab, shootPoint.position, Quaternion.identity);//弾の生成
 
             TamaController tamaController = tama.GetComponent<TamaController>();
-            tamaController.SetDirection(direction);//playerの向きを弾の飛ぶ向きに適用する
+
+            tamaController.SetDirection(shootDirection);
+
             tamaController.damage = state.attack;//弾に、プレイヤーの攻撃力を適用する
 
             shootTimer = shootInterval;
@@ -233,6 +263,5 @@ public class Player : MonoBehaviour
             }
         }
     }
-
 
 }

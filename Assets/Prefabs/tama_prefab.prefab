@@ -105,8 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4848edc9256039b45b34fad951651496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TamaController
-  cameraTrans: {fileID: 0}
-  moveSpeed: 10
+  speed: 10
   damage: 0
 --- !u!58 &1439193776740858820
 CircleCollider2D:
