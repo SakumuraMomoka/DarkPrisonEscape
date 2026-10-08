@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
             Jump();
         }
 
-        if (CanAttack() && input.SwordPressed)
+        if (CanSword() && input.SwordPressed)
         {
             Sword();
 
@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (CanAttack() && input.ShootPressed)
+        if (CanShoot() && input.ShootPressed)
         {
             arrowArmSpr.enabled = true;
             Shoot();
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
         }
 
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
-        animator.SetBool("IsArrow", CanAttack() && input.ShootPressed);
+        animator.SetBool("IsArrow", CanShoot() && input.ShootPressed);
     }
 
     private void OnCollisionEnter2D(Collision2D other)//collision
@@ -164,10 +164,15 @@ public class Player : MonoBehaviour
                mode.CurrentMode == PlayerMode.Mode.Dakko; 
     }
 
-    private bool CanAttack()//攻撃できる条件
+    private bool CanShoot()//たまが打てる条件
     {
         return mode.CurrentMode == PlayerMode.Mode.Normal ||
                mode.CurrentMode == PlayerMode.Mode.Tetunagi;
+    }
+
+    private bool CanSword()//剣を使える条件
+    {
+        return mode.CurrentMode == PlayerMode.Mode.Normal;
     }
 
     private void Jump()//ジャンプ
@@ -206,10 +211,8 @@ public class Player : MonoBehaviour
         if (shootTimer <= 0f)
         {
             Vector3 mousePosition = Mouse.current.position.ReadValue();//マウスカーソルの位置を取得
-
             Vector3 worldPosition = 
                 mainCamera.ScreenToWorldPoint(mousePosition);//スクリーン座標→ワールド座標
-
             worldPosition.z = shootPoint.position.z;//z座標を合わせる
 
             Vector2 shootDirection =
@@ -222,12 +225,16 @@ public class Player : MonoBehaviour
             }
 
             Transform arm = transform.Find("arrow arm");
-            
-            float angle =
-            Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
-
-            arm.rotation =
-                Quaternion.Euler(0f, 0f, angle);
+            float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;//角度を求める
+            arm.rotation = Quaternion.Euler(0f, 0f, angle);//角度を適用する
+            if (direction == 1)
+            {
+                arm.localScale = new Vector3(1f, 1f, 0.1f);
+            }
+            else if (direction == -1)
+            {
+                arm.localScale = new Vector3(-1f, 1f, 0.1f);//スプライト反転
+            }
 
             GameObject tama = Instantiate(tamaPrefab, shootPoint.position, Quaternion.identity);//弾の生成
 
