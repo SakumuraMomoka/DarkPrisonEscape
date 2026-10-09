@@ -14,7 +14,15 @@ public class PlayerMode : MonoBehaviour
         Dakko,
     }
 
+    public enum FightMode//騎士の戦闘モードの一覧
+    {
+        Normal,
+        Arrow,
+        Sword
+    }
+
     public Mode CurrentMode {  get; private set; } = Mode.Normal;//最初のモードはnormal
+    public FightMode CurrentFightMode { get; private set; } = FightMode.Normal;//最初の戦闘モードはnormal
 
     private Animator animator;
 
@@ -37,6 +45,27 @@ public class PlayerMode : MonoBehaviour
                 break;
 
             case Mode.Dakko:
+                animator.runtimeAnimatorController = dakkoController;
+                break;
+
+        }
+    }
+
+    public void ChangeFightMode(FightMode newMode)//Playerスクリプトで戦闘モードを変えるための関数
+    {
+        CurrentFightMode = newMode;
+
+        switch (CurrentFightMode)//今の戦闘モードに応じて変える
+        {
+            case FightMode.Normal:
+                animator.runtimeAnimatorController = normalController;
+                break;
+
+            case FightMode.Arrow:
+                animator.runtimeAnimatorController = tetunagiController;
+                break;
+
+            case FightMode.Sword:
                 animator.runtimeAnimatorController = dakkoController;
                 break;
 
