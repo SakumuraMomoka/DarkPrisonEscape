@@ -9,6 +9,7 @@ TagManager:
   - Tama
   - Sword
   - Asiba
+  - Ground
   layers:
   - Default
   - TransparentFX
