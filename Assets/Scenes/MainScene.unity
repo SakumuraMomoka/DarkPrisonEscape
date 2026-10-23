@@ -18180,8 +18180,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
-<<<<<<< HEAD
-=======
 --- !u!1 &1853369063
 GameObject:
   m_ObjectHideFlags: 0
@@ -18369,7 +18367,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> 069704f6b9994b7779b83788aa1cf0b288664345
 --- !u!1 &1878248254
 GameObject:
   m_ObjectHideFlags: 0
