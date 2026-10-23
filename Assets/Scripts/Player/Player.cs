@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static PlayerMode;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float walkSpeed;
     [SerializeField] private float jumpPower;
+    [SerializeField] private float damageStunTime;
 
     public float direction = 1;//たまの向きを変えるための変数
 
@@ -19,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float shootInterval;
 
     private float shootTimer;
+    private float damageTimer;
 
     private bool isTouchingGirl = false;
     private bool canTakeDamage = true;
@@ -47,6 +50,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        ModeStateChange();
+
         if (!input.canControl)
         {
             return;
@@ -85,6 +90,39 @@ public class Player : MonoBehaviour
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
         animator.SetBool("IsArrow", CanShoot() && input.ShootPressed);
     }
+
+
+    private bool CanJump()//ジャンプできる条件
+    {
+        return (mode.CurrentMode == PlayerMode.Mode.Normal ||
+               mode.CurrentMode == PlayerMode.Mode.Dakko) &&
+               mode.CurrentStateMode == PlayerMode.StateMode.Normal;
+    }
+
+    private bool CanShoot()//たまが打てる条件
+    {
+        return (mode.CurrentMode == PlayerMode.Mode.Normal ||
+               mode.CurrentMode == PlayerMode.Mode.Tetunagi) &&
+               (mode.CurrentStateMode == PlayerMode.StateMode.Normal ||
+               mode.CurrentStateMode == PlayerMode.StateMode.Jump) &&
+               mode.CurrentFightMode == PlayerMode.FightMode.Arrow;
+    }
+
+    private bool CanSword()//剣を使える条件
+    {
+        return (mode.CurrentMode == PlayerMode.Mode.Normal) &&
+               (mode.CurrentStateMode == PlayerMode.StateMode.Normal ||
+               mode.CurrentStateMode == PlayerMode.StateMode.Jump);    }
+
+    private bool IsGrounded()//地面と触れてるのかの判定
+    {
+        return Physics2D.OverlapCircle(
+            groundCheck.position,
+            groundCheckRadius,
+            groundLayer
+            );
+    }
+
 
     private void OnCollisionEnter2D(Collision2D other)//collision
     {
@@ -158,37 +196,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool CanJump()//ジャンプできる条件
-    {
-        return mode.CurrentMode == PlayerMode.Mode.Normal ||
-               mode.CurrentMode == PlayerMode.Mode.Dakko; 
-    }
-
-    private bool CanShoot()//たまが打てる条件
-    {
-        return mode.CurrentMode == PlayerMode.Mode.Normal ||
-               mode.CurrentMode == PlayerMode.Mode.Tetunagi;
-    }
-
-    private bool CanSword()//剣を使える条件
-    {
-        return mode.CurrentMode == PlayerMode.Mode.Normal;
-    }
-
     private void Jump()//ジャンプ
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);//y方向だけ変化させ、ジャンプする
 
         animator.SetTrigger("Jump");//ジャンプのアニメーション再生
-    }
-
-    private bool IsGrounded()//地面と触れてるのかの判定
-    {
-        return Physics2D.OverlapCircle(
-            groundCheck.position,
-            groundCheckRadius,
-            groundLayer
-            );
     }
 
     private void Sword()//剣で切る
@@ -252,7 +264,7 @@ public class Player : MonoBehaviour
 
     private void ModeChange()//モード変更の管理
     {
-            if (input.NormalPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
+        if (input.NormalPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
 
         if (isTouchingGirl == true || mode.CurrentMode == PlayerMode.Mode.Tetunagi)
         {
@@ -262,7 +274,7 @@ public class Player : MonoBehaviour
             }
         }
            
-        if (isTouchingGirl == true)
+        if (isTouchingGirl == true || mode.CurrentMode == PlayerMode.Mode.Dakko)
         {
             if (input.TetunagiPressed)
             {
@@ -271,4 +283,57 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void StartDamage()//ダメージを受けたとき,playerstatecontrollerで呼び出す
+    {
+        mode.ChangeStateMode(PlayerMode.StateMode.Damage);
+        damageTimer = damageStunTime;
+
+        input.canControl = false;
+
+        // 横方向の移動を止める
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+    }
+
+    private void ModeStateChange()//状態モード変更の管理
+    {
+        switch (mode.CurrentStateMode)
+        {
+            case StateMode.Damage:
+                damageTimer -= Time.deltaTime;
+
+                if (damageTimer <= 0f)
+                {
+                    if (IsGrounded())
+                    {
+                        mode.ChangeStateMode(PlayerMode.StateMode.Normal);
+                    }
+                    else
+                    {
+                        mode.ChangeStateMode(PlayerMode.StateMode.Jump);
+                    }
+                }
+
+                break;
+
+            case StateMode.Climb:
+                // よじ登りが完了するまで状態を維持する
+                break;
+
+            case StateMode.Normal:
+
+            case StateMode.Jump:
+                if (IsGrounded())
+                {
+                    mode.ChangeStateMode(PlayerMode.StateMode.Normal);
+                }
+                else
+                {
+                    mode.ChangeStateMode(PlayerMode.StateMode.Jump);
+                }
+
+                input.canControl = true;
+
+                break;
+        }
+    }
 }

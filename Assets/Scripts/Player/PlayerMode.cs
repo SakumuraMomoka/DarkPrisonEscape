@@ -21,8 +21,17 @@ public class PlayerMode : MonoBehaviour
         Sword
     }
 
+    public enum StateMode//騎士の状態モードの一覧
+    {
+        Normal,
+        Jump,
+        Climb,
+        Damage
+    }
+
     public Mode CurrentMode {  get; private set; } = Mode.Normal;//最初のモードはnormal
     public FightMode CurrentFightMode { get; private set; } = FightMode.Normal;//最初の戦闘モードはnormal
+    public StateMode CurrentStateMode { get; private set; } = StateMode.Normal;//最初の状態モードはnormal
 
     private Animator animator;
 
@@ -71,4 +80,10 @@ public class PlayerMode : MonoBehaviour
 
         }
     }
+
+    public void ChangeStateMode(StateMode newMode)//Playerスクリプトで状態モードを変えるための関数
+    {
+        CurrentStateMode = newMode;
+    }
 }
+
