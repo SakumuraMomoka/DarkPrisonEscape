@@ -1,8 +1,14 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Girl : MonoBehaviour
 {
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance;
+
+    private bool wasCarrying = false;
+
     private PlayerMode playerMode;
     private PlayerInput playerInput;
     private SpriteRenderer spriteRenderer;
@@ -52,6 +58,10 @@ public class Girl : MonoBehaviour
 
     private void trans()//playerのモードに応じた調整
     {
+        bool isCarrying =
+            playerMode.CurrentMode == PlayerMode.Mode.Tetunagi ||
+            playerMode.CurrentMode == PlayerMode.Mode.Dakko;
+
         if (playerMode.CurrentMode == PlayerMode.Mode.Tetunagi)
         { 
             spriteRenderer.enabled = false;
@@ -59,11 +69,13 @@ public class Girl : MonoBehaviour
             //手繋ぎの位置にするための処理
             if (player.GetComponent<Player>().direction == 1)
             {
-                this.transform.position = player.transform.position + new Vector3(-0.45f, -0.15f, 0);
+                this.transform.position = player.transform.position 
+                                        + new Vector3(-0.45f, -0.15f, 0);
             }
             else
             {
-                this.transform.position = player.transform.position + new Vector3(0.45f, -0.15f, 0);
+                this.transform.position = player.transform.position
+                                        + new Vector3(0.45f, -0.15f, 0);
             }
         }
         else if (playerMode.CurrentMode == PlayerMode.Mode.Dakko)
@@ -75,6 +87,36 @@ public class Girl : MonoBehaviour
         else if (playerMode.CurrentMode == PlayerMode.Mode.Normal)
         {
             spriteRenderer.enabled = true;
+
+            // 手つなぎ・抱っこを解除した瞬間
+            if (wasCarrying)
+            {
+                PutOnGround();
+            }
+        }
+
+        wasCarrying = isCarrying;
+    }
+
+    private void PutOnGround()
+    {
+        //Girlの現在位置から下方向に地面を探す
+        RaycastHit2D hit = Physics2D.Raycast(
+            transform.position,
+            Vector2.down,
+            groundCheckDistance,
+            groundLayer
+            );
+
+        if (hit.collider != null)
+        {
+            //Colliderの下側が地面に接する位置に置く
+            float halfHeight = GetComponent<Collider2D>().bounds.extents.y;
+
+            Vector3 pos = transform.position;
+            pos.y = hit.point.y + halfHeight;
+            transform.position = pos;
         }
     }
+
 }

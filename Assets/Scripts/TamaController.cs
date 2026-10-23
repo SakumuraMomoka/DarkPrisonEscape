@@ -32,6 +32,11 @@ public class TamaController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        if (other.gameObject.CompareTag("Ground"))//地面にぶつかったとき
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void destroy()//画面外にいったら、球を削除する
