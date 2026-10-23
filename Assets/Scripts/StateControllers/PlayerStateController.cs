@@ -5,10 +5,16 @@ using UnityEngine.UI;
 public class PlayerStateController : MonoBehaviour
 {
     public CharacterState state;
+    private Player player;
 
     private int currentHp;
 
     [SerializeField] private Image[] heart;
+
+    private void Awake()
+    {
+        player = GetComponent<Player>();
+    }
 
     private void Start()
     {
@@ -50,9 +56,7 @@ public class PlayerStateController : MonoBehaviour
     {
         currentHp -= damage;
 
-        Debug.Log("ダメージ：" + damage);
-        Debug.Log("player現在HP：" + currentHp);
-
+        player.StartDamage();
     }
 
     private void UpdateHearts()//playerのhpによって、ハートを消す

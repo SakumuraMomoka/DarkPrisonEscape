@@ -286,6 +286,7 @@ MonoBehaviour:
   state: {fileID: 11400000, guid: d2cde91f0a42cbd43998b4803a44ce98, type: 2}
   walkSpeed: 5
   jumpPower: 12
+  damageStunTime: 0.5
   direction: 1
   tamaPrefab: {fileID: 5625235288143058474, guid: 4c8c5304ead7d8949acdea796e162c2c, type: 3}
   groundCheck: {fileID: 1560999916}
@@ -329,8 +330,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 4.5299997, y: 13.301742}
+  m_Offset: {x: 0.010688603, y: -0.01424849}
+  m_Size: {x: 3.2234457, y: 13.045287}
   m_Direction: 0
 --- !u!50 &3931297
 Rigidbody2D:
@@ -1285,8 +1286,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.52833676, y: -0.031405687}
-  m_Size: {x: 3.9999998, y: 8.688337}
+  m_Offset: {x: 0.69391114, y: -0.031405687}
+  m_Size: {x: 3.1011577, y: 8.688337}
   m_Direction: 0
 --- !u!1 &272435938
 GameObject:
@@ -18179,6 +18180,8 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+<<<<<<< HEAD
+=======
 --- !u!1 &1853369063
 GameObject:
   m_ObjectHideFlags: 0
@@ -18366,6 +18369,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> 069704f6b9994b7779b83788aa1cf0b288664345
 --- !u!1 &1878248254
 GameObject:
   m_ObjectHideFlags: 0
@@ -19985,7 +19989,6 @@ SceneRoots:
   - {fileID: 162360814}
   - {fileID: 482623362}
   - {fileID: 916388347}
-  - {fileID: 1853369069}
   - {fileID: 1012213031}
   - {fileID: 3246417382983095868}
   - {fileID: 896790656}
