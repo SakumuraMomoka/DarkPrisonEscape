@@ -15,8 +15,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject tamaPrefab;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float groundCheckRadius;
+    [SerializeField] private float wallCheckRadius;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float shootInterval;
 
@@ -294,6 +296,40 @@ public class Player : MonoBehaviour
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
     }
 
+    private bool IsTouchingWall()//playerが壁に接触してるか調べる
+    {
+        return Physics2D.OverlapCircle(
+            wallCheck.position,
+            wallCheckRadius,
+            groundLayer
+        ) != null;
+    }
+
+    private bool CanClimb()//壁に引っかかってるか判定
+    {
+        float moveX = input.WalkInput.x;
+
+        // 横方向の入力があるか
+        if (Mathf.Abs(moveX) < 0.1f)
+        {
+            return false;
+        }
+
+        // 空中にいるか
+        if (IsGrounded())
+        {
+            return false;
+        }
+
+        // 入力方向に崖があるか
+        if (!IsTouchingWall())
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private void ModeStateChange()//状態モード変更の管理
     {
         switch (mode.CurrentStateMode)
@@ -316,13 +352,23 @@ public class Player : MonoBehaviour
                 break;
 
             case StateMode.Climb:
-                // よじ登りが完了するまで状態を維持する
+                if (mode.CurrentMode == PlayerMode.Mode.Normal)
+                {
+                }
+                else if (mode.CurrentMode == PlayerMode.Mode.Dakko)
+                {
+                }
+
                 break;
 
             case StateMode.Normal:
 
             case StateMode.Jump:
-                if (IsGrounded())
+                if (CanClimb())
+                {
+                    mode.ChangeStateMode(PlayerMode.StateMode.Climb);
+                }
+                else if (IsGrounded())
                 {
                     mode.ChangeStateMode(PlayerMode.StateMode.Normal);
                 }
