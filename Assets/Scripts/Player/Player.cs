@@ -352,12 +352,7 @@ public class Player : MonoBehaviour
                 break;
 
             case StateMode.Climb:
-                if (mode.CurrentMode == PlayerMode.Mode.Normal)
-                {
-                }
-                else if (mode.CurrentMode == PlayerMode.Mode.Dakko)
-                {
-                }
+                //
 
                 break;
 
