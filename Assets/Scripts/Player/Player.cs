@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float groundCheckRadius;
-    [SerializeField] private float wallCheckRadius;
+    [SerializeField] private Vector2 wallCheckSize;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float shootInterval;
 
@@ -61,9 +61,17 @@ public class Player : MonoBehaviour
 
         ModeChange();
 
-        Walk();
-        
-        if(CanJump() && input.JumpPressed && IsGrounded() == true)
+        if (mode.CurrentStateMode == PlayerMode.StateMode.Climb)
+        {
+            // Climbモード中は横移動しない
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        }
+        else 
+        {
+            Walk();
+        }
+
+        if (CanJump() && input.JumpPressed && IsGrounded() == true)
         {
             Jump();
         }
@@ -106,8 +114,7 @@ public class Player : MonoBehaviour
         return (mode.CurrentMode == PlayerMode.Mode.Normal ||
                mode.CurrentMode == PlayerMode.Mode.Tetunagi) &&
                (mode.CurrentStateMode == PlayerMode.StateMode.Normal ||
-               mode.CurrentStateMode == PlayerMode.StateMode.Jump) &&
-               mode.CurrentFightMode == PlayerMode.FightMode.Arrow;
+               mode.CurrentStateMode == PlayerMode.StateMode.Jump);
     }
 
     private bool CanSword()//剣を使える条件
@@ -296,13 +303,31 @@ public class Player : MonoBehaviour
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
     }
 
-    private bool IsTouchingWall()//playerが壁に接触してるか調べる
+    private bool IsTouchingWall()
     {
-        return Physics2D.OverlapCircle(
+        return Physics2D.OverlapBox(
             wallCheck.position,
-            wallCheckRadius,
+            wallCheckSize,
+            0f,
             groundLayer
         ) != null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // GroundCheckの判定範囲を表示
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+
+        // WallCheckの判定範囲を表示
+        if (wallCheck != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(wallCheck.position, wallCheckSize);
+        }
     }
 
     private bool CanClimb()//壁に引っかかってるか判定
@@ -352,7 +377,18 @@ public class Player : MonoBehaviour
                 break;
 
             case StateMode.Climb:
-                //
+                if (!IsTouchingWall())
+                {
+                    Debug.Log("fff");
+                    if (IsGrounded())
+                    {
+                        mode.ChangeStateMode(PlayerMode.StateMode.Normal);
+                    }
+                    else
+                    {
+                        mode.ChangeStateMode(PlayerMode.StateMode.Jump);
+                    }
+                }
 
                 break;
 
@@ -361,7 +397,11 @@ public class Player : MonoBehaviour
             case StateMode.Jump:
                 if (CanClimb())
                 {
+                    Debug.Log("asd");
                     mode.ChangeStateMode(PlayerMode.StateMode.Climb);
+
+                    // 横方向の速度を止める
+                    rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
                 }
                 else if (IsGrounded())
                 {
