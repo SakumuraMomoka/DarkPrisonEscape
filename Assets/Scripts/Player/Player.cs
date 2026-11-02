@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer arrowArmSpr;
+    [SerializeField] private SpriteRenderer arrowAimSpr;
     private Collider2D swordCol;
     private Camera mainCamera;
 
@@ -86,19 +87,29 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (CanShoot() && input.ShootPressed)
+        if (input.AimPressed)
         {
             arrowArmSpr.enabled = true;
-            Shoot();
+            arrowAimSpr.enabled = true;
+            ShootArmRotate();
+
+            if (CanShoot() && input.ShootPressed)
+            {
+                Shoot();
+            }
+            else
+            {
+                shootTimer = 0f;
+            }
         }
         else
         {
             arrowArmSpr.enabled = false;
-            shootTimer = 0f;
+            arrowAimSpr.enabled = false;
         }
 
         animator.SetBool("Grounded", IsGrounded());//animatorで、jumpからidleに戻る条件
-        animator.SetBool("IsArrow", CanShoot() && input.ShootPressed);
+        animator.SetBool("IsArrow", input.AimPressed);
     }
 
 
@@ -217,7 +228,7 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Cut");
     }
 
-    private IEnumerator SwordColChange()//秒間剣の当たり判定をオンにする
+    private IEnumerator SwordColChange()//指定秒間剣の当たり判定をオンにする
     {
         isSwordAttacking = true;
         swordCol.enabled = true;
@@ -227,36 +238,25 @@ public class Player : MonoBehaviour
         swordCol.enabled = false;
         isSwordAttacking = false;
     }
+
     private void Shoot()//弓を飛ばす
     {
+        Vector3 mousePosition = Mouse.current.position.ReadValue();//マウスカーソルの位置を取得
+        Vector3 worldPosition =
+            mainCamera.ScreenToWorldPoint(mousePosition);//スクリーン座標→ワールド座標
+        worldPosition.z = shootPoint.position.z;//z座標を合わせる
+
+        Vector2 shootDirection =
+            (worldPosition - shootPoint.position).normalized;//弾の発射方向
+
+        //playerが向いている方向と反対側に弾を飛ばさないようにする
+        if ((direction == 1 && shootDirection.x < 0) || (direction == -1 && shootDirection.x > 0))
+        {
+            shootDirection.x = 0;
+        }
+
         if (shootTimer <= 0f)
         {
-            Vector3 mousePosition = Mouse.current.position.ReadValue();//マウスカーソルの位置を取得
-            Vector3 worldPosition = 
-                mainCamera.ScreenToWorldPoint(mousePosition);//スクリーン座標→ワールド座標
-            worldPosition.z = shootPoint.position.z;//z座標を合わせる
-
-            Vector2 shootDirection =
-                (worldPosition - shootPoint.position).normalized;//弾の発射方向
-
-            //playerが向いている方向と反対側に弾を飛ばさないようにする
-            if ((direction == 1 && shootDirection.x < 0) || (direction == -1 && shootDirection.x > 0))
-            {
-                shootDirection.x = 0;
-            }
-
-            Transform arm = transform.Find("arrow arm");
-            float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;//角度を求める
-            arm.rotation = Quaternion.Euler(0f, 0f, angle);//角度を適用する
-            if (direction == 1)
-            {
-                arm.localScale = new Vector3(1f, 1f, 0.1f);
-            }
-            else if (direction == -1)
-            {
-                arm.localScale = new Vector3(-1f, 1f, 0.1f);//スプライト反転
-            }
-
             GameObject tama = Instantiate(tamaPrefab, shootPoint.position, Quaternion.identity);//弾の生成
 
             TamaController tamaController = tama.GetComponent<TamaController>();
@@ -269,6 +269,35 @@ public class Player : MonoBehaviour
         }
 
         shootTimer -= Time.deltaTime;
+    }
+
+    private void ShootArmRotate()//カーソルの位置に合わせてplayerの腕を回転させる
+    {
+        Vector3 mousePosition = Mouse.current.position.ReadValue();//マウスカーソルの位置を取得
+        Vector3 worldPosition =
+            mainCamera.ScreenToWorldPoint(mousePosition);//スクリーン座標→ワールド座標
+        worldPosition.z = shootPoint.position.z;//z座標を合わせる
+
+        Vector2 shootDirection =
+            (worldPosition - shootPoint.position).normalized;//弾の発射方向
+
+        //playerが向いている方向と反対側に弾を飛ばさないようにする
+        if ((direction == 1 && shootDirection.x < 0) || (direction == -1 && shootDirection.x > 0))
+        {
+            shootDirection.x = 0;
+        }
+
+        Transform arm = transform.Find("arrow arm");
+        float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;//角度を求める
+        arm.rotation = Quaternion.Euler(0f, 0f, angle);//角度を適用する
+        if (direction == 1)
+        {
+            arm.localScale = new Vector3(1f, 1f, 0.1f);
+        }
+        else if (direction == -1)
+        {
+            arm.localScale = new Vector3(-1f, 1f, 0.1f);//スプライト反転
+        }
     }
 
     private void ModeChange()//モード変更の管理
@@ -379,7 +408,6 @@ public class Player : MonoBehaviour
             case StateMode.Climb:
                 if (!IsTouchingWall())
                 {
-                    Debug.Log("fff");
                     if (IsGrounded())
                     {
                         mode.ChangeStateMode(PlayerMode.StateMode.Normal);
@@ -397,7 +425,6 @@ public class Player : MonoBehaviour
             case StateMode.Jump:
                 if (CanClimb())
                 {
-                    Debug.Log("asd");
                     mode.ChangeStateMode(PlayerMode.StateMode.Climb);
 
                     // 横方向の速度を止める

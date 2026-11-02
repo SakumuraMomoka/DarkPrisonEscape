@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     public bool SkeyPressed { get; private set; }//S
     public bool WkeyPressed { get; private set; }//W
     public bool BkeyPressed { get; private set; }//B
+    public bool AimPressed { get; private set; }//発射前狙う
 
     void Awake()
     {
@@ -55,5 +56,7 @@ public class PlayerInput : MonoBehaviour
         WkeyPressed = input.Player.Wkey.WasPressedThisFrame();
 
         BkeyPressed = input.Player.Bkey.WasPressedThisFrame();
+
+        AimPressed = input.Player.Aim.IsPressed();
     }
 }
