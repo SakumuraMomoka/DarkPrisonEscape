@@ -29,7 +29,7 @@ public class AsibaController : MonoBehaviour
         }
     }
 
-    /*private void OnCollisionExit2D(Collision2D other)
+    private void OnCollisionExit2D(Collision2D other)
     {
         if (buttonNumber == 1 && other.gameObject.CompareTag("Player"))
         {
@@ -50,5 +50,5 @@ public class AsibaController : MonoBehaviour
         {
             gateController.SetButton(2, false);
         }
-    }*/
+    }
 }

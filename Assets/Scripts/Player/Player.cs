@@ -304,7 +304,7 @@ public class Player : MonoBehaviour
     {
         if (input.NormalPressed) mode.ChangeMode(PlayerMode.Mode.Normal);
 
-        if (isTouchingGirl == true || mode.CurrentMode == PlayerMode.Mode.Tetunagi)
+        if (isTouchingGirl == true || mode.CurrentMode == PlayerMode.Mode.Tetunagi || IsGrounded() == true)
         {
             if (input.DakkoPressed)
             {
@@ -312,7 +312,7 @@ public class Player : MonoBehaviour
             }
         }
            
-        if (isTouchingGirl == true || mode.CurrentMode == PlayerMode.Mode.Dakko)
+        if (isTouchingGirl == true || mode.CurrentMode == PlayerMode.Mode.Dakko || IsGrounded() == true)
         {
             if (input.TetunagiPressed)
             {
